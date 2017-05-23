@@ -1,9 +1,11 @@
 class Player
 {
-	constructor()
+	constructor( x,y )
 	{
-		this.x = 50;
-		this.y = 50;
+		this.x = x;
+		this.y = y;
+		this.xORIG = this.x;
+		this.yORIG = this.y;
 		this.w = 30;
 		this.h = 30;
 		this.c = "#0FF";

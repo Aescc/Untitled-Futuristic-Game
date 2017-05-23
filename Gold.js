@@ -12,11 +12,25 @@ class Gold
 		this.cWidth = cWidth;
 		this.cHeight = cHeight;
 		this.isUsable = true;
+		this.randomMoveCounter = 0;
+		this.randomMoveCounterMax = 5;
+		this.randomMoveVX = Random( -5,5 );
+		this.randomMoveVY = Random( -5,5 );
 	}
 	Update()
 	{
 		this.x += this.vx;
 		this.y += this.vy;
+		if( this.randomMoveCounter < this.randomMoveCounterMax )
+		{
+			this.x += this.randomMoveVX;
+			this.y += this.randomMoveVY;
+			++this.randomMoveCounter;
+		}
+		else
+		{
+			
+		}
 	}
 	Draw()
 	{
@@ -39,9 +53,19 @@ class Gold
 		}
 		return this.isUsable;
 	}
+	GetPos()
+	{
+		return {
+			x:this.x,
+			y:this.y,
+			w:this.w,
+			h:this.h
+		}
+	}
 	SetPos( pos )
 	{
 		this.x = pos.x;
 		this.y = pos.y;
+		this.randomMoveCounter = 0;
 	}
 }

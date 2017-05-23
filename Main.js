@@ -1,38 +1,190 @@
 const canvas = document.getElementById( 'gc' );
 const context = canvas.getContext( '2d' );
 
-var scrollSpeed = -2;
+// Numbers
+var scrollSpeedX = -0.7;
+var scrollSpeedY = 0;
+var fireCounter = 0;
+var fireCounterMax = 5;
+var totalGold = 0;
 
+// Booleans
+var firing = false;
+
+// Arrays
 var keyMap = [];
-
-var mouse = { x: 0,y: 0 }
-
-var player = new Player();
 var rocks =
 [
-	new Rock( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
-	new Rock( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
-	new Rock( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
-	new Rock( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
-	new Rock( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
-	new Rock( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
-	new Rock( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
-	new Rock( canvas.width,canvas.height,scrollSpeed,scrollSpeed )
+	new Rock( canvas.width + 100,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 200,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 300,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 400,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 500,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 600,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 700,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 800,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
 ];
 var golds =
 [
-	new Gold( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
-	new Gold( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
-	new Gold( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
-	new Gold( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
-	new Gold( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
-	new Gold( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
-	new Gold( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
-	new Gold( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
-	new Gold( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
-	new Gold( canvas.width,canvas.height,scrollSpeed,scrollSpeed )
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Gold( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
 ];
-var bullets = [
+var bullets =
+[
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
 	new Bullet( canvas.width,canvas.height ),
 	new Bullet( canvas.width,canvas.height ),
 	new Bullet( canvas.width,canvas.height ),
@@ -40,6 +192,10 @@ var bullets = [
 	new Bullet( canvas.width,canvas.height ),
 	new Bullet( canvas.width,canvas.height )
 ];
+
+// Objects
+var mouse = { x: 0,y: 0 }
+var player = new Player( 50,canvas.height / 2 );
 
 window.onload = function()
 {
@@ -54,6 +210,7 @@ window.onload = function()
 		keyMap[e.keyCode] = e.type == "keydown";
 	}
 	canvas.addEventListener( 'mousedown',CheckClick );
+	canvas.addEventListener( 'mouseup',CheckClick2 );
 	canvas.addEventListener( 'mousemove',function( e )
 	{
 			mouse.x = CheckMousePos( e ).x;
@@ -64,7 +221,7 @@ window.onload = function()
 
 function Init( firstTime = false )
 {
-	player.SetPos( { x:50,y:50 } );
+	player.SetPos( { x:50,y:canvas.height / 2 } );
 	rocks.forEach( function( rock )
 	{
 		rock.Respawn();
@@ -86,17 +243,13 @@ function Init( firstTime = false )
 function CheckClick()
 {
 	// When you click, this happens.
-	var isDone = false;
-	bullets.forEach( function( bullet )
-	{
-		if( bullet.GetUsable() && !isDone )
-		{
-			rotation = FindAngle( player.GetPos().x,player.GetPos().y,mouse.x,mouse.y );
-			console.log( rotation );
-			bullet.SetPos( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation } );
-			isDone = true;
-		}
-	});
+	firing = true;
+}
+
+function CheckClick2()
+{
+	// When you stop clicking, this happens.
+	firing = false;
 }
 
 function CheckMousePos( e )
@@ -138,18 +291,53 @@ function Update()
 			rock.GetPos().x,rock.GetPos().y,rock.GetPos().w,rock.GetPos().h ) )
 		{
 			Init();
+			totalGold = 0;
 		}
+		bullets.forEach( function( bullet )
+		{
+			if( HitTest( bullet.GetPos().x,bullet.GetPos().y,bullet.GetPos().w,bullet.GetPos().h,
+				rock.GetPos().x,rock.GetPos().y,rock.GetPos().w,rock.GetPos().h ) )
+			{
+				// rock.Respawn();
+				rock.Hurt( 1 );
+				bullet.Respawn();
+			}
+		});
 	});
 	golds.forEach( function( gold )
 	{
 		gold.Update();
+		if( HitTest( player.GetPos().x,player.GetPos().y,player.GetPos().w,player.GetPos().h,
+			gold.GetPos().x,gold.GetPos().y,gold.GetPos().w,gold.GetPos().h ) )
+		{
+			gold.SetPos( { x:5000,y:5000 } );
+			++totalGold;
+		}
 	});
 	// TODO: Make the player able to shoot bullets down-right only
 	// and if the bullet hits a rock, the rock Respawns.
-	bullets.forEach( function( bullet )
+	var isDone = false;
+	if( fireCounter <= fireCounterMax )
 	{
-		bullet.Update();
-	});
+		++fireCounter;
+	}
+	// bullets.forEach( function( bullet )
+	for( var i = 0; i < bullets.length; ++i )
+	{
+		bullets[i].Update();
+		if( firing && fireCounter > fireCounterMax )
+		{
+			if( bullets[i].GetUsable() && !isDone )
+			{
+				rotation = FindAngle( player.GetPos().x,player.GetPos().y,mouse.x,mouse.y );
+				bullets[i].SetPos    ( { x:player.GetPos().x + player.GetPos().w,y:player.GetPos().y + 7,rot:rotation } );
+				bullets[i + 1].SetPos( { x:player.GetPos().x + player.GetPos().w,y:player.GetPos().y + 7,rot:rotation + 5 } );
+				bullets[i + 2].SetPos( { x:player.GetPos().x + player.GetPos().w,y:player.GetPos().y + 7,rot:rotation - 5 } );
+				isDone = true;
+				fireCounter = 0;
+			}
+		}
+	}
 }
 
 function Draw()

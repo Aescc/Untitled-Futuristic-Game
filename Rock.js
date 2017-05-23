@@ -1,14 +1,22 @@
 class Rock
 {
-	constructor( cWidth,cHeight,scrollVX,scrollVY )
+	constructor( x,y,moveType,cWidth,cHeight,scrollVX,scrollVY )
 	{
 		this.x = 5000;
 		this.y = 5000;
+		this.xORIG = x;
+		this.yORIG = y;
 		this.w = 50;
 		this.h = 50;
-		this.c = "#630";
-		this.vx = scrollVX;
-		this.vy = scrollVY;
+		this.HP = 3;
+		this.HPORIG = this.HP;
+		this.moveType = moveType;
+		// this.c = "#630";
+		this.c = "#555";
+		this.scrollVX = scrollVX;
+		this.scrollVY = scrollVY;
+		this.vx = -5;
+		this.vy = 0;
 		this.cWidth = cWidth - this.w;
 		this.cHeight = cHeight - this.w;
 	}
@@ -16,10 +24,25 @@ class Rock
 	{
 		if( this.x + this.w > 0 && this.y + this.h > 0)
 		{
-			this.x += this.vx;
-			this.y += this.vy;
+			this.x += this.scrollVX;
+			this.y += this.scrollVY;
+			if( this.moveType === 0 )
+			{
+				this.x += this.vx;
+				this.y += this.vy;
+			}
+			else if( this.moveType === 1 )
+			{
+				this.x += this.vx;
+				// this.y = Math.sin( this.x ) * this.cHeight / 20 + this.cHeight / 2;
+				this.y = this.cHeight / 5 * Math.sin( this.x / 50 ) + this.cHeight / 2;
+			}
 		}
 		else
+		{
+			this.Respawn();
+		}
+		if( this.HP < 1 )
 		{
 			this.Respawn();
 		}
@@ -30,8 +53,9 @@ class Rock
 	}
 	Respawn()
 	{
+		this.HP = this.HPORIG;
 		var goldCounter = 0;
-		const goldCounterMax = 2;
+		const goldCounterMax = 3;
 		const goldX = this.x;
 		const goldY = this.y;
 		golds.forEach( function( gold )
@@ -42,8 +66,10 @@ class Rock
 				++goldCounter;
 			}
 		});
-		this.x = Random( 0,this.cWidth ) + this.cWidth;
-		this.y = Random( 0,this.cHeight ) + this.cHeight;
+		// this.x = Random( 0,this.cWidth ) + this.cWidth;
+		// this.y = Random( 0,this.cHeight );
+		this.x = this.xORIG;
+		this.y = this.yORIG;
 	}
 	GetPos()
 	{
@@ -51,7 +77,12 @@ class Rock
 			x:this.x,
 			y:this.y,
 			w:this.w,
-			h:this.h
+			h:this.h,
+			HP:this.HP
 		}
+	}
+	Hurt( amount )
+	{
+		this.HP -= amount;
 	}
 }
