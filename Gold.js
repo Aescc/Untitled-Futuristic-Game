@@ -22,6 +22,10 @@ class Gold
 	{
 		Rect( this.x,this.y,this.w,this.h,this.c );
 	}
+	Respawn()
+	{
+		this.x = 5000;
+	}
 	GetInfo()
 	{
 		if( this.x < 0 || this.x > this.cWidth ||

@@ -8,7 +8,8 @@ var keyMap = [];
 var mouse = { x: 0,y: 0 }
 
 var player = new Player();
-var rocks = [
+var rocks =
+[
 	new Rock( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
 	new Rock( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
 	new Rock( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
@@ -18,7 +19,8 @@ var rocks = [
 	new Rock( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
 	new Rock( canvas.width,canvas.height,scrollSpeed,scrollSpeed )
 ];
-this.golds = [
+var golds =
+[
 	new Gold( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
 	new Gold( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
 	new Gold( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
@@ -29,6 +31,14 @@ this.golds = [
 	new Gold( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
 	new Gold( canvas.width,canvas.height,scrollSpeed,scrollSpeed ),
 	new Gold( canvas.width,canvas.height,scrollSpeed,scrollSpeed )
+];
+var bullets = [
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height ),
+	new Bullet( canvas.width,canvas.height )
 ];
 
 window.onload = function()
@@ -52,26 +62,16 @@ window.onload = function()
 	Init( true );
 };
 
-function CheckClick()
-{
-	// When you click, this happens.
-}
-
-function CheckMousePos( e )
-{
-	const rect = canvas.getBoundingClientRect();
-	const root = document.documentElement;
-	const mouseX = e.clientX - rect.left - root.scrollLeft;
-	const mouseY = e.clientY - rect.top - root.scrollTop;
-	return { x: mouseX,y: mouseY };
-}
-
 function Init( firstTime = false )
 {
 	player.SetPos( { x:50,y:50 } );
 	rocks.forEach( function( rock )
 	{
 		rock.Respawn();
+	});
+	golds.forEach( function( gold )
+	{
+		gold.Respawn();
 	});
 	if( firstTime )
 	{
@@ -81,6 +81,31 @@ function Init( firstTime = false )
 	{
 		
 	}
+}
+
+function CheckClick()
+{
+	// When you click, this happens.
+	var isDone = false;
+	bullets.forEach( function( bullet )
+	{
+		if( bullet.GetUsable() && !isDone )
+		{
+			rotation = FindAngle( player.GetPos().x,player.GetPos().y,mouse.x,mouse.y );
+			console.log( rotation );
+			bullet.SetPos( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation } );
+			isDone = true;
+		}
+	});
+}
+
+function CheckMousePos( e )
+{
+	const rect = canvas.getBoundingClientRect();
+	const root = document.documentElement;
+	const mouseX = e.clientX - rect.left - root.scrollLeft;
+	const mouseY = e.clientY - rect.top - root.scrollTop;
+	return { x: mouseX,y: mouseY };
 }
 
 function Update()
@@ -121,6 +146,10 @@ function Update()
 	});
 	// TODO: Make the player able to shoot bullets down-right only
 	// and if the bullet hits a rock, the rock Respawns.
+	bullets.forEach( function( bullet )
+	{
+		bullet.Update();
+	});
 }
 
 function Draw()
@@ -134,6 +163,10 @@ function Draw()
 	golds.forEach( function( gold )
 	{
 		gold.Draw();
+	});
+	bullets.forEach( function( bullet )
+	{
+		bullet.Draw();
 	});
 	player.Draw();
 }
