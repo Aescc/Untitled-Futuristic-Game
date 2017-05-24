@@ -5,7 +5,7 @@ const context = canvas.getContext( '2d' );
 var scrollSpeedX = -0.7;
 var scrollSpeedY = 0;
 var fireCounter = 0;
-var fireCounterMax = 10;
+var fireCounterMax = 2;
 var totalGold = 0;
 
 // Booleans
@@ -339,9 +339,9 @@ function Update()
 			if( bullets[i].GetUsable() && !isDone )
 			{
 				rotation = FindAngle( player.GetPos().x,player.GetPos().y,mouse.x,mouse.y );
-				bullets[i].SetPos    ( { x:player.GetPos().x + player.GetPos().w,y:player.GetPos().y + 7,rot:rotation } );
-				bullets[i + 1].SetPos( { x:player.GetPos().x + player.GetPos().w,y:player.GetPos().y + 7,rot:rotation + 5 } );
-				bullets[i + 2].SetPos( { x:player.GetPos().x + player.GetPos().w,y:player.GetPos().y + 7,rot:rotation - 5 } );
+				bullets[i].SetPos    ( { x:player.GetPos().x + player.GetPos().w / 2,y:player.GetPos().y + 7,rot:rotation } );
+				bullets[i + 1].SetPos( { x:player.GetPos().x + player.GetPos().w / 2,y:player.GetPos().y + 7,rot:rotation + 5 } );
+				bullets[i + 2].SetPos( { x:player.GetPos().x + player.GetPos().w / 2,y:player.GetPos().y + 7,rot:rotation - 5 } );
 				isDone = true;
 				fireCounter = 0;
 			}
