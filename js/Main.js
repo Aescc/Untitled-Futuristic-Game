@@ -5,7 +5,7 @@ const context = canvas.getContext( '2d' );
 var scrollSpeedX = -0.7;
 var scrollSpeedY = 0;
 var fireCounter = 0;
-var fireCounterMax = 2;
+var fireCounterMax = 4;
 var totalGold = 0;
 
 // Booleans
