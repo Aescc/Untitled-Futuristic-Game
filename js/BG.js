@@ -6,6 +6,8 @@ class BG
 		this.y = 0;
 		this.w = cWidth * 5;
 		this.h = cHeight;
+		this.cWidth = cWidth;
+		this.cHeight = cHeight;
 		this.scrollVX = scrollVX;
 		this.scrollVY = scrollVY;
 		this.colorMap = 
@@ -56,7 +58,13 @@ class BG
 		{
 			for( var j = 0; j < this.colorMap[i].length; ++j )
 			{
-				Rect( this.x + j * 10,this.y + i * 10,10,10,this.colorMap[i][j] );
+				const drawX = this.x + j * 10;
+				const drawY = this.y + i * 10;
+				if( drawX > -10 && drawX < this.cWidth &&
+					drawY > -10 && drawY < this.cHeight )
+				{
+					Rect( drawX,drawY,10,10,this.colorMap[i][j] );
+				}
 			}
 		}
 	}

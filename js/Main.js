@@ -15,14 +15,14 @@ var firing = false;
 var keyMap = [];
 var rocks =
 [
-	new Rock( canvas.width + 100,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 200,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 300,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 400,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 500,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 600,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 700,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 800,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
+	new Rock( canvas.width + 100,0,2,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 200,0,2,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 300,0,2,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 400,0,2,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 500,0,2,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 600,0,2,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 700,0,2,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 800,0,2,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
 ];
 var golds =
 [
@@ -239,6 +239,10 @@ function Init( firstTime = false )
 	{
 		player.InitImages();
 		background.Generate();
+		bullets.forEach( function( bullet )
+		{
+			bullet.InitImages();
+		});
 		console.log( "Initialization complete!" );
 	}
 	else
@@ -274,22 +278,34 @@ function Update()
 	if( keyMap[87] )
 	{
 		// W
-		player.Move( 0 );
+		if( player.CheckBounds( 0,0 ) )
+		{
+			player.Move( 0 );
+		}
 	}
 	else if( keyMap[83] )
 	{
 		// S
-		player.Move( 1 );
+		if( player.CheckBounds( 1,canvas.height - player.GetPos().h ) )
+		{
+			player.Move( 1 );
+		}
 	}
 	if( keyMap[65] )
 	{
 		// A
-		player.Move( 2 );
+		if( player.CheckBounds( 2,0 ) )
+		{
+			player.Move( 2 );
+		}
 	}
 	else if( keyMap[68] )
 	{
 		// D
-		player.Move( 3 );
+		if( player.CheckBounds( 3,canvas.width - player.GetPos().w ) )
+		{
+			player.Move( 3 );
+		}
 	}
 	player.SetImageDir( mouse.x,mouse.y );
 	background.Update();
@@ -339,9 +355,9 @@ function Update()
 			if( bullets[i].GetUsable() && !isDone )
 			{
 				rotation = FindAngle( player.GetPos().x,player.GetPos().y,mouse.x,mouse.y );
-				bullets[i].SetPos    ( { x:player.GetPos().x + player.GetPos().w / 2,y:player.GetPos().y + 7,rot:rotation } );
-				bullets[i + 1].SetPos( { x:player.GetPos().x + player.GetPos().w / 2,y:player.GetPos().y + 7,rot:rotation + 5 } );
-				bullets[i + 2].SetPos( { x:player.GetPos().x + player.GetPos().w / 2,y:player.GetPos().y + 7,rot:rotation - 5 } );
+				bullets[i].SetPos    ( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation } );
+				bullets[i + 1].SetPos( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation + 5 } );
+				bullets[i + 2].SetPos( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation - 5 } );
 				isDone = true;
 				fireCounter = 0;
 			}

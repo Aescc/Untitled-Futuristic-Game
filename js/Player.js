@@ -6,8 +6,8 @@ class Player
 		this.y = y;
 		this.xORIG = this.x;
 		this.yORIG = this.y;
-		this.w = 30;
-		this.h = 30;
+		this.w = 40;
+		this.h = 40;
 		this.c = "#0FF";
 		this.s = 5;
 		this.images =
@@ -54,6 +54,30 @@ class Player
 			this.x += this.s;
 		}
 	}
+	CheckBounds( dir,limit ) // True means inside bounds.
+	{
+		if( dir === 0 && this.y < 0 )
+		{
+			// this.y += this.s;
+			return false;
+		}
+		else if( dir === 1 && this.y > limit )
+		{
+			// this.y -= this.s;
+			return false;
+		}
+		else if( dir === 2 && this.x < 0 )
+		{
+			// this.x += this.s;
+			return false;
+		}
+		else if( dir === 3 && this.x > limit )
+		{
+			// this.x -= this.s;
+			return false;
+		}
+		return true;
+	}
 	Draw()
 	{
 		// Rect( this.x,this.y,this.w,this.h,this.c );
@@ -76,24 +100,6 @@ class Player
 	SetImageDir( mouseX,mouseY )
 	{
 		const angle = FindAngle( this.x + this.w / 2,this.y + this.h / 2,mouseX,mouseY );
-		/*
-		if( angle < -35 && angle > -135 )
-		{
-			this.imageDir = 0;
-		}
-		else if( angle < 135 && angle > 35 )
-		{
-			this.imageDir = 1;
-		}
-		else if( angle < 35 && angle > -35  )
-		{
-			this.imageDir = 3;
-		}
-		else
-		{
-			this.imageDir = 2;
-		}
-		*/
 		if( angle > -90 - 30 && angle < - 90 + 30)
 		{
 			this.imageDir = 0;

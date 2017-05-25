@@ -4,14 +4,21 @@ class Bullet
 	{
 		this.x = 5000;
 		this.y = 5000;
-		this.w = 15;
-		this.h = 15;
+		this.w = 40;
+		this.h = 40;
 		this.c = "#F00";
 		this.s = 20;
 		this.rot = 0;
+		this.timer = 0;
+		this.timerMax = 15;
 		this.isUsable = false;
 		this.cWidth = cWidth;
 		this.cHeight = cHeight;
+		this.image = new Image();
+	}
+	InitImages()
+	{
+		this.image.src = "images/bullet/bullet0.png";
 	}
 	Update()
 	{
@@ -23,7 +30,14 @@ class Bullet
 		if( this.x > 0 && this.x < this.cWidth &&
 		this.y > 0 && this.y < this.cHeight )
 		{
-			
+			if( this.timer > this.timerMax )
+			{
+				this.Respawn();
+			}
+			else
+			{
+				++this.timer;
+			}
 		}
 		else
 		{
@@ -32,7 +46,8 @@ class Bullet
 	}
 	Draw()
 	{
-		Rect( this.x,this.y,this.w,this.h,this.c );
+		// Rect( this.x,this.y,this.w,this.h,this.c );
+		context.drawImage( this.image,this.x,this.y,this.w,this.h );
 	}
 	Respawn()
 	{
@@ -53,6 +68,7 @@ class Bullet
 	}
 	SetPos( pos )
 	{
+		this.timer = 0;
 		this.x = pos.x;
 		this.y = pos.y;
 		this.rot = pos.rot;

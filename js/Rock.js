@@ -37,14 +37,19 @@ class Rock
 				// this.y = Math.sin( this.x ) * this.cHeight / 20 + this.cHeight / 2;
 				this.y = this.cHeight / 5 * Math.sin( this.x / 50 ) + this.cHeight / 2;
 			}
+			else if( this.moveType === 2 )
+			{
+				this.x += this.vx;
+				this.y = 50 * Math.log( this.x );
+			}
 		}
 		else
 		{
-			this.Respawn();
+			// this.Respawn();
 		}
 		if( this.HP < 1 )
 		{
-			this.Respawn();
+			// this.Respawn();
 		}
 	}
 	Draw()
