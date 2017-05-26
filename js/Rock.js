@@ -6,13 +6,14 @@ class Rock
 		this.y = 5000;
 		this.xORIG = x;
 		this.yORIG = y;
-		this.w = 50;
-		this.h = 50;
-		this.HP = 3;
+		this.w = 40;
+		this.h = 40;
+		this.HP = 10;
 		this.HPORIG = this.HP;
 		this.moveType = moveType;
 		// this.c = "#630";
 		this.c = "#555";
+		this.isUsable = false;
 		this.scrollVX = scrollVX;
 		this.scrollVY = scrollVY;
 		this.vx = -5;
@@ -24,6 +25,7 @@ class Rock
 	{
 		if( this.x + this.w > 0 && this.y + this.h > 0)
 		{
+			this.isUsable = false;
 			this.x += this.scrollVX;
 			this.y += this.scrollVY;
 			if( this.moveType === 0 )
@@ -46,10 +48,15 @@ class Rock
 		else
 		{
 			// this.Respawn();
+			this.x = -5000;
+			this.isUsable = true;
 		}
 		if( this.HP < 1 )
 		{
 			// this.Respawn();
+			this.SpawnGold( Random( 1,4 ) );
+			this.x = -5000;
+			this.isUsable = true;
 		}
 	}
 	Draw()
@@ -59,6 +66,7 @@ class Rock
 	Respawn()
 	{
 		this.HP = this.HPORIG;
+		/*
 		var goldCounter = 0;
 		const goldCounterMax = 3;
 		const goldX = this.x;
@@ -71,10 +79,26 @@ class Rock
 				++goldCounter;
 			}
 		});
-		// this.x = Random( 0,this.cWidth ) + this.cWidth;
-		// this.y = Random( 0,this.cHeight );
+		this.x = Random( 0,this.cWidth ) + this.cWidth;
+		this.y = Random( 0,this.cHeight );
+		*/
 		this.x = this.xORIG;
 		this.y = this.yORIG;
+	}
+	SpawnGold( amount )
+	{
+		var goldCounter = 0;
+		const goldCounterMax = amount;
+		const goldX = this.x;
+		const goldY = this.y;
+		golds.forEach( function( gold )
+		{
+			if( gold.GetInfo() && goldCounter < goldCounterMax )
+			{
+				gold.SetPos( { x:goldX,y:goldY } );
+				++goldCounter;
+			}
+		});
 	}
 	GetPos()
 	{
@@ -85,6 +109,10 @@ class Rock
 			h:this.h,
 			HP:this.HP
 		}
+	}
+	GetUsable()
+	{
+		return this.isUsable;
 	}
 	Hurt( amount )
 	{

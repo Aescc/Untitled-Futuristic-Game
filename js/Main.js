@@ -192,6 +192,10 @@ var bullets =
 	new Bullet( canvas.width,canvas.height ),
 	new Bullet( canvas.width,canvas.height )
 ];
+var turrets =
+[
+	new Turret( Random( canvas.width,canvas.width * 2 ),Random( 0,canvas.height - 40 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
+];
 
 // Objects
 var mouse = { x: 0,y: 0 }
@@ -230,11 +234,11 @@ function Init( firstTime = false )
 	rocks.forEach( function( rock )
 	{
 		rock.Respawn();
-	});
+	} );
 	golds.forEach( function( gold )
 	{
 		gold.Respawn();
-	});
+	} );
 	if( firstTime )
 	{
 		player.InitImages();
@@ -242,7 +246,7 @@ function Init( firstTime = false )
 		bullets.forEach( function( bullet )
 		{
 			bullet.InitImages();
-		});
+		} );
 		console.log( "Initialization complete!" );
 	}
 	else
@@ -327,8 +331,8 @@ function Update()
 				rock.Hurt( 1 );
 				bullet.Respawn();
 			}
-		});
-	});
+		} );
+	} );
 	golds.forEach( function( gold )
 	{
 		gold.Update();
@@ -338,7 +342,11 @@ function Update()
 			gold.SetPos( { x:5000,y:5000 } );
 			++totalGold;
 		}
-	});
+	} );
+	turrets.forEach( function( turret )
+	{
+		turret.Update();
+	} );
 	// TODO: Make the player able to shoot bullets down-right only
 	// and if the bullet hits a rock, the rock Respawns.
 	var isDone = false;
@@ -363,6 +371,22 @@ function Update()
 			}
 		}
 	}
+	var willResetRocks = true;
+	// TODO: Make more enemies with different AI... Maybe turrets or something?
+	rocks.forEach( function( rock )
+	{
+		if( !rock.GetUsable() )
+		{
+			willResetRocks = false;
+		}
+	} );
+	if( willResetRocks )
+	{
+		rocks.forEach( function( rock )
+		{
+			rock.Respawn();
+		} );
+	}
 }
 
 function Draw()
@@ -370,17 +394,21 @@ function Draw()
 	// Draw things here
 	Rect( 0,0,canvas.width,canvas.height,"#000" );
 	background.Draw();
+	turrets.forEach( function( turret )
+	{
+		turret.Draw();
+	} );
 	rocks.forEach( function( rock )
 	{
 		rock.Draw();
-	});
+	} );
 	golds.forEach( function( gold )
 	{
 		gold.Draw();
-	});
+	} );
 	bullets.forEach( function( bullet )
 	{
 		bullet.Draw();
-	});
+	} );
 	player.Draw();
 }

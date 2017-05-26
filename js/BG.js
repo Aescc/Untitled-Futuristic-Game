@@ -18,9 +18,18 @@ class BG
 			[],[],[],[],[],[],[],[],[],[],
 			[],[],[],[],[],[],[],[],[],[]
 		];
+		this.colorMapTransition = 
+		[
+			[],[],[],[],[],[],[],[],[],[],
+			[],[],[],[],[],[],[],[],[],[],
+			[],[],[],[],[],[],[],[],[],[],
+			[],[],[],[],[],[],[],[],[],[],
+			[],[],[],[],[],[],[],[],[],[]
+		];
 	}
 	Generate()
 	{
+		// TODO: Add lakes, rivers, or some other type of water.
 		for( var i = 0; i < this.h / 10; ++i )
 		{
 			for( var j = 0; j < this.w / 10; ++j )
@@ -35,6 +44,7 @@ class BG
 				}
 				// Rect( j * 10,i * 10,10,10,color );
 				this.colorMap[i][j] = color;
+				this.colorMapTransition[i][j] = color;
 			}
 		}
 	}
@@ -49,7 +59,7 @@ class BG
 		}
 		else
 		{
-			this.x = 0;
+			this.x = this.cWidth;
 		}
 	}
 	Draw()
@@ -59,6 +69,19 @@ class BG
 			for( var j = 0; j < this.colorMap[i].length; ++j )
 			{
 				const drawX = this.x + j * 10;
+				const drawY = this.y + i * 10;
+				if( drawX > -10 && drawX < this.cWidth &&
+					drawY > -10 && drawY < this.cHeight )
+				{
+					Rect( drawX,drawY,10,10,this.colorMap[i][j] );
+				}
+			}
+		}
+		for( var i = 0; i < this.colorMapTransition.length; ++i )
+		{
+			for( var j = 0; j < this.colorMapTransition[i].length; ++j )
+			{
+				const drawX = this.x - this.w + j * 10;
 				const drawY = this.y + i * 10;
 				if( drawX > -10 && drawX < this.cWidth &&
 					drawY > -10 && drawY < this.cHeight )
