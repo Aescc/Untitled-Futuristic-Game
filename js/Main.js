@@ -196,6 +196,24 @@ var turrets =
 [
 	new Turret( Random( canvas.width,canvas.width * 2 ),Random( 0,canvas.height - 40 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
 ];
+var particles =
+[
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
+];
 
 // Objects
 var mouse = { x: 0,y: 0 }
@@ -343,12 +361,14 @@ function Update()
 			++totalGold;
 		}
 	} );
+	particles.forEach( function( particle )
+	{
+		particle.Update();
+	} );
 	turrets.forEach( function( turret )
 	{
 		turret.Update();
 	} );
-	// TODO: Make the player able to shoot bullets down-right only
-	// and if the bullet hits a rock, the rock Respawns.
 	var isDone = false;
 	if( fireCounter <= fireCounterMax )
 	{
@@ -405,6 +425,10 @@ function Draw()
 	golds.forEach( function( gold )
 	{
 		gold.Draw();
+	} );
+	particles.forEach( function( particle )
+	{
+		particle.Draw();
 	} );
 	bullets.forEach( function( bullet )
 	{

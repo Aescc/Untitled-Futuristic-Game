@@ -55,6 +55,7 @@ class Rock
 		{
 			// this.Respawn();
 			this.SpawnGold( Random( 1,4 ) );
+			this.SpawnParticles( Random( 4,9 ) );
 			this.x = -5000;
 			this.isUsable = true;
 		}
@@ -99,6 +100,21 @@ class Rock
 				++goldCounter;
 			}
 		});
+	}
+	SpawnParticles( amount )
+	{
+		var particleCounter = 0;
+		const particleCounterMax = amount;
+		const particleX = this.x;
+		const particleY = this.y;
+		particles.forEach( function( particle )
+		{
+			if( particle.GetInfo() && particleCounter < particleCounterMax )
+			{
+				particle.SetPos( { x:particleX,y:particleY } );
+				++particleCounter;
+			}
+		} );
 	}
 	GetPos()
 	{
