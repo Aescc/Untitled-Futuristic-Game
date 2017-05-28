@@ -16,6 +16,7 @@ class Bullet
 		this.cHeight = cHeight;
 		this.image = new Image();
 		this.type = type;
+		this.sound = new Audio( "audio/pew.wav");
 	}
 	InitImages()
 	{
@@ -80,6 +81,8 @@ class Bullet
 	}
 	SetPos( pos )
 	{
+		this.sound.currentTime = 0;
+		this.sound.play();
 		this.timer = 0;
 		this.x = pos.x;
 		this.y = pos.y;

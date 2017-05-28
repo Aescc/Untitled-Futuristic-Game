@@ -252,10 +252,6 @@ window.onload = function()
 
 function Init( firstTime = false )
 {
-	// Pixel perfect!
-	context.webkitImageSmoothingEnabled = false;
-	context.mozImageSmoothingEnabled = false;
-	context.imageSmoothingEnabled = false;
 	player.SetPos( { x:50,y:canvas.height / 2 } );
 	rocks.forEach( function( rock )
 	{
@@ -265,8 +261,20 @@ function Init( firstTime = false )
 	{
 		gold.Respawn();
 	} );
+	bullets.forEach( function( bullet )
+	{
+		bullet.Respawn();
+	} );
+	enemyBullets.forEach( function( enemyBullet )
+	{
+		enemyBullet.Respawn();
+	} );
 	if( firstTime )
 	{
+		// Pixel perfect!
+		context.webkitImageSmoothingEnabled = false;
+		context.mozImageSmoothingEnabled = false;
+		context.imageSmoothingEnabled = false;
 		player.InitImages();
 		background.Generate();
 		bullets.forEach( function( bullet )

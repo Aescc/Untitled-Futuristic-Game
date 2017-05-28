@@ -23,6 +23,7 @@ class Turret
 			new Image()
 		];
 		this.imageDir = 0;
+		this.shootDir = 0;
 		this.shootTimer = 0;
 		this.shootTimerMax = 100;
 	}
@@ -48,7 +49,8 @@ class Turret
 			{
 				if( bullets[i].GetUsable() )
 				{
-					var rotation = 0;
+					var rotation = this.shootDir;
+					/*
 					if( this.imageDir === 0 )
 					{
 						rotation = -90;
@@ -81,6 +83,7 @@ class Turret
 					{
 						rotation = -135;
 					}
+					*/
 					enemyBullets[i].SetPos( { x:this.x,y:this.y,rot:rotation } );
 					i = enemyBullets.length + 1;
 					this.shootTimer = 0;
@@ -105,6 +108,7 @@ class Turret
 	SetImageDir( targetX,targetY )
 	{
 		const angle = FindAngle( this.x + this.w / 2,this.y + this.h / 2,targetX,targetY );
+		this.shootDir = angle;
 		if( angle > -90 - 30 && angle < - 90 + 30)
 		{
 			this.imageDir = 0;
