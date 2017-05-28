@@ -265,6 +265,10 @@ function Init( firstTime = false )
 		{
 			bullet.InitImages();
 		} );
+		turrets.forEach( function( turret )
+		{
+			turret.InitImages();
+		} );
 		console.log( "Initialization complete!" );
 	}
 	else
@@ -368,6 +372,7 @@ function Update()
 	turrets.forEach( function( turret )
 	{
 		turret.Update();
+		turret.SetImageDir( player.GetPos().x,player.GetPos().y );
 	} );
 	var isDone = false;
 	if( fireCounter <= fireCounterMax )
