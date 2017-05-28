@@ -26,7 +26,14 @@ class Turret
 	}
 	InitImages()
 	{
-		
+		this.images[0].src = "images/turret/turret0.png";
+		this.images[1].src = "images/turret/turret1.png";
+		this.images[2].src = "images/turret/turret2.png";
+		this.images[3].src = "images/turret/turret3.png";
+		this.images[4].src = "images/turret/turret4.png";
+		this.images[5].src = "images/turret/turret5.png";
+		this.images[6].src = "images/turret/turret6.png";
+		this.images[7].src = "images/turret/turret7.png";
 	}
 	Update()
 	{
@@ -35,7 +42,8 @@ class Turret
 	}
 	Draw()
 	{
-		Rect( this.x,this.y,this.w,this.h,this.c );
+		// Rect( this.x,this.y,this.w,this.h,this.c );
+		context.drawImage( this.images[this.imageDir],this.x,this.y,this.w,this.h );
 	}
 	GetPos()
 	{
