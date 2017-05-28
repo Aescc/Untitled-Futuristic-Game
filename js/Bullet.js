@@ -1,6 +1,6 @@
 class Bullet
 {
-	constructor( cWidth,cHeight )
+	constructor( cWidth,cHeight,type )
 	{
 		this.x = 5000;
 		this.y = 5000;
@@ -15,10 +15,22 @@ class Bullet
 		this.cWidth = cWidth;
 		this.cHeight = cHeight;
 		this.image = new Image();
+		this.type = type;
 	}
 	InitImages()
 	{
-		this.image.src = "images/bullet/bullet0.png";
+		if( this.type === 0 )
+		{
+			this.image.src = "images/bullet/bullet0.png";
+			this.s = 20;
+			this.timerMax = 15;
+		}
+		else if( this.type === 1 )
+		{
+			this.image.src = "images/bullet/bullet1.png";
+			this.s = 5;
+			this.timerMax = 250;
+		}
 	}
 	Update()
 	{

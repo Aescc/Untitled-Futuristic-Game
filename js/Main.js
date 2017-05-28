@@ -89,108 +89,116 @@ var golds =
 ];
 var bullets =
 [
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height ),
-	new Bullet( canvas.width,canvas.height )
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 ),
+	new Bullet( canvas.width,canvas.height,0 )
+];
+var enemyBullets =
+[
+	new Bullet( canvas.width,canvas.height,1 ),
+	new Bullet( canvas.width,canvas.height,1 ),
+	new Bullet( canvas.width,canvas.height,1 ),
+	new Bullet( canvas.width,canvas.height,1 ),
+	new Bullet( canvas.width,canvas.height,1 )
 ];
 var turrets =
 [
@@ -264,6 +272,10 @@ function Init( firstTime = false )
 		bullets.forEach( function( bullet )
 		{
 			bullet.InitImages();
+		} );
+		enemyBullets.forEach( function( enemyBullet )
+		{
+			enemyBullet.InitImages();
 		} );
 		turrets.forEach( function( turret )
 		{
@@ -355,6 +367,16 @@ function Update()
 			}
 		} );
 	} );
+	enemyBullets.forEach( function( enemyBullet )
+	{
+		enemyBullet.Update();
+		if( HitTest( player.GetPos().x,player.GetPos().y,player.GetPos().w,player.GetPos().h,
+			enemyBullet.GetPos().x,enemyBullet.GetPos().y,enemyBullet.GetPos().w,enemyBullet.GetPos().h ) )
+		{
+			Init();
+			totalGold = 0;
+		}
+	} );
 	golds.forEach( function( gold )
 	{
 		gold.Update();
@@ -387,10 +409,10 @@ function Update()
 		{
 			if( bullets[i].GetUsable() && !isDone )
 			{
-				rotation = FindAngle( player.GetPos().x,player.GetPos().y,mouse.x,mouse.y );
-				bullets[i].SetPos    ( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation } );
-				bullets[i + 1].SetPos( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation + 5 } );
-				bullets[i + 2].SetPos( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation - 5 } );
+				rotation = FindAngle	( player.GetPos().x,player.GetPos().y,mouse.x,mouse.y );
+				bullets[i].SetPos		( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation } );
+				bullets[i + 1].SetPos	( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation + 5 } );
+				bullets[i + 2].SetPos	( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation - 5 } );
 				isDone = true;
 				fireCounter = 0;
 			}
@@ -438,6 +460,10 @@ function Draw()
 	bullets.forEach( function( bullet )
 	{
 		bullet.Draw();
+	} );
+	enemyBullets.forEach( function( enemyBullet )
+	{
+		enemyBullet.Draw();
 	} );
 	player.Draw();
 }

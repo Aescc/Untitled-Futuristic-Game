@@ -23,6 +23,8 @@ class Turret
 			new Image()
 		];
 		this.imageDir = 0;
+		this.shootTimer = 0;
+		this.shootTimerMax = 100;
 	}
 	InitImages()
 	{
@@ -39,6 +41,52 @@ class Turret
 	{
 		this.x += this.scrollVX;
 		this.y += this.scrollVY;
+		++this.shootTimer;
+		if( this.shootTimer > this.shootTimerMax )
+		{
+			for( var i = 0; i < enemyBullets.length; ++i )
+			{
+				if( bullets[i].GetUsable() )
+				{
+					var rotation = 0;
+					if( this.imageDir === 0 )
+					{
+						rotation = -90;
+					}
+					else if( this.imageDir === 1 )
+					{
+						rotation = 90;
+					}
+					else if( this.imageDir === 2 )
+					{
+						rotation = 180;
+					}
+					else if( this.imageDir === 3 )
+					{
+						rotation = 0;
+					}
+					else if( this.imageDir === 4 )
+					{
+						rotation = -45;
+					}
+					else if( this.imageDir === 5 )
+					{
+						rotation = 45;
+					}
+					else if( this.imageDir === 6 )
+					{
+						rotation = 135;
+					}
+					else if( this.imageDir === 7 )
+					{
+						rotation = -135;
+					}
+					enemyBullets[i].SetPos( { x:this.x,y:this.y,rot:rotation } );
+					i = enemyBullets.length + 1;
+					this.shootTimer = 0;
+				}
+			}
+		}
 	}
 	Draw()
 	{
