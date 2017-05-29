@@ -4,6 +4,8 @@ class Turret
 	{
 		this.x = x;
 		this.y = y;
+		this.xORIG = this.x;
+		this.yORIG = this.y;
 		this.w = 40;
 		this.h = 40;
 		this.c = "#1050D0";
@@ -43,7 +45,9 @@ class Turret
 		this.x += this.scrollVX;
 		this.y += this.scrollVY;
 		++this.shootTimer;
-		if( this.shootTimer > this.shootTimerMax )
+		if( this.shootTimer > this.shootTimerMax &&
+			this.x > 0 && this.x < this.cWidth &&
+			this.y > 0 && this.y < this.cHeight )
 		{
 			for( var i = 0; i < enemyBullets.length; ++i )
 			{
@@ -95,6 +99,11 @@ class Turret
 	{
 		// Rect( this.x,this.y,this.w,this.h,this.c );
 		context.drawImage( this.images[this.imageDir],this.x,this.y,this.w,this.h );
+	}
+	Respawn()
+	{
+		this.x = this.xORIG;
+		this.y = this.yORIG;
 	}
 	GetPos()
 	{

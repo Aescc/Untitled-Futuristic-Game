@@ -15,14 +15,14 @@ var firing = false;
 var keyMap = [];
 var rocks =
 [
-	new Rock( canvas.width + 100,0,2,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 200,0,2,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 300,0,2,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 400,0,2,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 500,0,2,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 600,0,2,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 700,0,2,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 800,0,2,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
+	new Rock( canvas.width + 100,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 200,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 300,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 400,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 500,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 600,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 700,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 800,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
 ];
 var golds =
 [

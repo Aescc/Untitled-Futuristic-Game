@@ -47,11 +47,17 @@ class BG
 				this.colorMapTransition[i][j] = color;
 			}
 		}
+		this.GenerateWater();
+	}
+	GenerateWater()
+	{
+		const waterColor = "#00AAFF";
+		var randPlaceX = Random( 0,this.colorMap[0].length - 1 );
+		var randPlaceY = Random( 0,this.colorMap.length - 1 );
+		// this.colorMap[randPlaceY][randPlaceX] = waterColor;
 	}
 	Update()
 	{
-		// TODO: Make this transition seamless somehow; maybe try the generation code.
-		// OR Make a transition frame which comes after the current one to make the change seamless.
 		if( this.x > -3200 )
 		{
 			this.x += this.scrollVX;

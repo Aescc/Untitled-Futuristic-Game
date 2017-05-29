@@ -80,11 +80,12 @@ class Rock
 				++goldCounter;
 			}
 		});
-		this.x = Random( 0,this.cWidth ) + this.cWidth;
-		this.y = Random( 0,this.cHeight );
 		*/
-		this.x = this.xORIG;
-		this.y = this.yORIG;
+		this.x = Random( 0,this.cWidth ) + this.cWidth;
+		this.y = Random( 0,this.cHeight - this.h );
+		this.moveType = Random( 0,2 );
+		// this.x = this.xORIG;
+		// this.y = this.yORIG;
 	}
 	SpawnGold( amount )
 	{

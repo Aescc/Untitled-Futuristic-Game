@@ -35,7 +35,6 @@ class Bullet
 	}
 	Update()
 	{
-		this.isUsable = false;
 		const vx = this.s * Math.cos( this.rot * Math.PI / 180 );
 		const vy = this.s * Math.sin( this.rot * Math.PI / 180 );
 		this.x += vx;
@@ -43,6 +42,7 @@ class Bullet
 		if( this.x > 0 && this.x < this.cWidth &&
 		this.y > 0 && this.y < this.cHeight )
 		{
+			this.isUsable = false;
 			if( this.timer > this.timerMax )
 			{
 				this.Respawn();
