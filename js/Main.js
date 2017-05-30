@@ -202,6 +202,9 @@ var enemyBullets =
 ];
 var turrets =
 [
+	new Turret( Random( canvas.width,canvas.width * 2 ),Random( 0,canvas.height - 40 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Turret( Random( canvas.width,canvas.width * 2 ),Random( 0,canvas.height - 40 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Turret( Random( canvas.width,canvas.width * 2 ),Random( 0,canvas.height - 40 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
 	new Turret( Random( canvas.width,canvas.width * 2 ),Random( 0,canvas.height - 40 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
 ];
 var particles =
@@ -256,6 +259,10 @@ function Init( firstTime = false )
 	rocks.forEach( function( rock )
 	{
 		rock.Respawn();
+	} );
+	turrets.forEach( function( turret )
+	{
+		turret.Respawn();
 	} );
 	golds.forEach( function( gold )
 	{
