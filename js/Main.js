@@ -15,14 +15,14 @@ var firing = false;
 var keyMap = [];
 var rocks =
 [
-	new Rock( canvas.width + 100,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 200,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 300,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 400,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 500,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 600,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 700,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	new Rock( canvas.width + 800,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
+	// new Rock( canvas.width + 100,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	// new Rock( canvas.width + 200,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	// new Rock( canvas.width + 300,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	// new Rock( canvas.width + 400,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	// new Rock( canvas.width + 500,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	// new Rock( canvas.width + 600,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	// new Rock( canvas.width + 700,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	// new Rock( canvas.width + 800,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
 ];
 var golds =
 [
@@ -207,6 +207,12 @@ var turrets =
 	new Turret( Random( canvas.width,canvas.width * 2 ),Random( 0,canvas.height - 40 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
 	new Turret( Random( canvas.width,canvas.width * 2 ),Random( 0,canvas.height - 40 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
 ];
+var tanks =
+[
+	new Tank( Random( canvas.width,canvas.width * 2 ),Random( 0,canvas.height ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Tank( Random( canvas.width,canvas.width * 2 ),Random( 0,canvas.height ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Tank( Random( canvas.width,canvas.width * 2 ),Random( 0,canvas.height ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
+];
 var particles =
 [
 	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
@@ -264,6 +270,10 @@ function Init( firstTime = false )
 	{
 		turret.Respawn();
 	} );
+	tanks.forEach( function( tank )
+	{
+		tank.Respawn();
+	} );
 	golds.forEach( function( gold )
 	{
 		gold.Respawn();
@@ -295,6 +305,10 @@ function Init( firstTime = false )
 		turrets.forEach( function( turret )
 		{
 			turret.InitImages();
+		} );
+		tanks.forEach( function( tank )
+		{
+			tank.InitImages();
 		} );
 		console.log( "Initialization complete!" );
 	}
@@ -411,6 +425,11 @@ function Update()
 		turret.Update();
 		turret.SetImageDir( player.GetPos().x,player.GetPos().y );
 	} );
+	tanks.forEach( function( tank )
+	{
+		tank.Update();
+		tank.SetImageDir( player.GetPos().x,player.GetPos().y );
+	} );
 	var isDone = false;
 	if( fireCounter <= fireCounterMax )
 	{
@@ -467,6 +486,10 @@ function Draw()
 	golds.forEach( function( gold )
 	{
 		gold.Draw();
+	} );
+	tanks.forEach( function( tank )
+	{
+		tank.Draw();
 	} );
 	particles.forEach( function( particle )
 	{

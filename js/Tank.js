@@ -1,18 +1,17 @@
-class Turret
+class Tank
 {
 	constructor( x,y,cWidth,cHeight,scrollVX,scrollVY )
 	{
 		this.x = x;
 		this.y = y;
-		this.xORIG = this.x;
-		this.yORIG = this.y;
 		this.w = 40;
 		this.h = 40;
-		this.c = "#1050D0";
-		this.scrollVX = scrollVX;
-		this.scrollVY = scrollVY;
+		this.xORIG = this.x;
+		this.yORIG = this.y;
 		this.cWidth = cWidth;
 		this.cHeight = cHeight;
+		this.scrollVX = scrollVX;
+		this.scrollVY = scrollVY;
 		this.images =
 		[
 			new Image(),
@@ -28,17 +27,21 @@ class Turret
 		this.shootDir = 0;
 		this.shootTimer = 0;
 		this.shootTimerMax = 100;
+		this.moveTimer = 0;
+		this.moveTimerMax = 150;
+		this.vx = 0;
+		this.vy = 0;
 	}
 	InitImages()
 	{
-		this.images[0].src = "images/turret/turret0.png";
-		this.images[1].src = "images/turret/turret1.png";
-		this.images[2].src = "images/turret/turret2.png";
-		this.images[3].src = "images/turret/turret3.png";
-		this.images[4].src = "images/turret/turret4.png";
-		this.images[5].src = "images/turret/turret5.png";
-		this.images[6].src = "images/turret/turret6.png";
-		this.images[7].src = "images/turret/turret7.png";
+		this.images[0].src = "images/tanks/tank0.png";
+		this.images[1].src = "images/tanks/tank1.png";
+		this.images[2].src = "images/tanks/tank2.png";
+		this.images[3].src = "images/tanks/tank3.png";
+		this.images[4].src = "images/tanks/tank4.png";
+		this.images[5].src = "images/tanks/tank5.png";
+		this.images[6].src = "images/tanks/tank6.png";
+		this.images[7].src = "images/tanks/tank7.png";
 	}
 	Update()
 	{
@@ -53,102 +56,95 @@ class Turret
 			{
 				if( enemyBullets[i].GetUsable() )
 				{
-					var rotation = this.shootDir;
-					/*
-					if( this.imageDir === 0 )
-					{
-						rotation = -90;
-					}
-					else if( this.imageDir === 1 )
-					{
-						rotation = 90;
-					}
-					else if( this.imageDir === 2 )
-					{
-						rotation = 180;
-					}
-					else if( this.imageDir === 3 )
-					{
-						rotation = 0;
-					}
-					else if( this.imageDir === 4 )
-					{
-						rotation = -45;
-					}
-					else if( this.imageDir === 5 )
-					{
-						rotation = 45;
-					}
-					else if( this.imageDir === 6 )
-					{
-						rotation = 135;
-					}
-					else if( this.imageDir === 7 )
-					{
-						rotation = -135;
-					}
-					*/
+					const rotation = this.shootDir;
 					enemyBullets[i].SetPos( { x:this.x,y:this.y,rot:rotation } );
 					i = enemyBullets.length + 1;
 					this.shootTimer = 0;
 				}
 			}
 		}
+		++this.moveTimer;
+		// TODO: Fix random movement, maybe to movetimer = movetimer * random
+		if( this.moveTimer < this.moveTimerMax )
+		{
+			// this.x += this.randMoveVX;
+			// this.y += this.randMoveVY;
+			this.x += this.vx;
+			this.y -= this.vy;
+		}
+		else if( this.moveTimer > this.moveTimerMax * 2 )
+		{
+			this.moveTimer = 0;
+		}
 	}
 	Draw()
 	{
-		// Rect( this.x,this.y,this.w,this.h,this.c );
-		context.drawImage( this.images[this.imageDir],this.x,this.y,this.w,this.h );
+		if( this.x > 0 - this.w && this.x < this.cWidth &&
+			this.y > 0 - this.h && this.y < this.cHeight )
+		{
+			// Rect( this.x,this.y,this.w,this.h,this.c );
+			context.drawImage( this.images[this.imageDir],this.x,this.y,this.w,this.h );
+		}
 	}
 	Respawn()
 	{
 		this.x = this.xORIG;
 		this.y = this.yORIG;
 	}
-	GetPos()
-	{
-		return {
-			x:this.x,
-			y:this.y,
-			w:this.w,
-			h:this.h
-		}
-	}
 	SetImageDir( targetX,targetY )
 	{
 		const angle = FindAngle( this.x + this.w / 2,this.y + this.h / 2,targetX,targetY );
 		this.shootDir = angle;
+		const min = -2;
+		const max = 2;
+		const rand = Random( 0,max );
 		if( angle > -90 - 30 && angle < - 90 + 30)
 		{
 			this.imageDir = 0;
+			this.vx = 0;
+			this.vy = rand;
 		}
 		else if( angle > 90 - 30 && angle < 90 + 30 )
 		{
 			this.imageDir = 1;
+			this.vx = 0;
+			this.vy = -rand;
 		}
 		else if( angle > 0 - 30 && angle < 0 + 30)
 		{
 			this.imageDir = 3;
+			this.vx = rand;
+			this.vy = 0;
 		}
 		else if( angle > -60 && angle < -30 )
 		{
 			this.imageDir = 4;
+			this.vx = rand;
+			this.vy = rand;
 		}
 		else if( angle > 30 && angle < 60 )
 		{
 			this.imageDir = 5;
+			this.vx = rand;
+			this.vy = -rand;
 		}
 		else if( angle > 120 && angle < 150 )
 		{
 			this.imageDir = 6;
+			this.vx = -rand;
+			this.vy = -rand;
 		}
 		else if( angle > -150 && angle < -120 )
 		{
 			this.imageDir = 7;
+			this.vx = -rand;
+			this.vy = rand;
 		}
 		else if( angle > 180 - 30 || angle < -180 + 30 )
 		{ //  Must come at the end because of 180 to -180 weirdness. 
 			this.imageDir = 2;
+			this.vx = -rand;
+			this.vy = 0;
 		}
 	}
 }
