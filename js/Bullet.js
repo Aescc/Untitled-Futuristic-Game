@@ -64,6 +64,16 @@ class Bullet
 	}
 	Respawn()
 	{
+		var particleNum = 0;
+		const MAX_PARTICLES = Random( 2,5 );
+		for( var i = 0; i < bulletParticles.length; ++i )
+		{
+			if( bulletParticles[0].GetInfo() && particleNum < MAX_PARTICLES )
+			{
+				bulletParticles[0].SetPos( { x:this.x,y:this.y } );
+				++particleNum;
+			}
+		}
 		this.x = 5000;
 	}
 	GetUsable()

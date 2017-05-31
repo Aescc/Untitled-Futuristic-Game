@@ -231,6 +231,24 @@ var particles =
 	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
 	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
 ];
+var bulletParticles =
+[
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 )
+];
 
 // Objects
 var mouse = { x: 0,y: 0 }
@@ -429,6 +447,15 @@ function Update()
 	{
 		tank.Update();
 		tank.SetImageDir( player.GetPos().x,player.GetPos().y );
+		bullets.forEach( function( bullet )
+		{
+			if( HitTest( tank.GetPos().x,tank.GetPos().y,tank.GetPos().w,tank.GetPos().h,
+			bullet.GetPos().x,bullet.GetPos().y,bullet.GetPos().w,bullet.GetPos().h ) )
+		{
+			tank.Hurt( 1 );
+			bullet.Respawn();
+		}
+		} );
 	} );
 	var isDone = false;
 	if( fireCounter <= fireCounterMax )

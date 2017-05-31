@@ -6,6 +6,8 @@ class Tank
 		this.y = y;
 		this.w = 40;
 		this.h = 40;
+		this.HP = 10;
+		this.HPORIG = this.HP;
 		this.xORIG = this.x;
 		this.yORIG = this.y;
 		this.cWidth = cWidth;
@@ -76,6 +78,11 @@ class Tank
 		{
 			this.moveTimer = 0;
 		}
+		if( this.HP < 1 )
+		{
+			this.HP = this.HPORIG;
+			this.Respawn();
+		}
 	}
 	Draw()
 	{
@@ -90,6 +97,10 @@ class Tank
 	{
 		this.x = this.xORIG;
 		this.y = this.yORIG;
+	}
+	GetPos()
+	{
+		return( { x:this.x,y:this.y,w:this.w,h:this.h } );
 	}
 	SetImageDir( targetX,targetY )
 	{
@@ -146,5 +157,9 @@ class Tank
 			this.vx = -rand;
 			this.vy = 0;
 		}
+	}
+	Hurt( amount )
+	{
+		this.HP -= amount;
 	}
 }

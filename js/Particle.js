@@ -1,11 +1,11 @@
 class Particle
 {
-	constructor( cWidth,cHeight,scrollVX,scrollVY )
+	constructor( cWidth,cHeight,scrollVX,scrollVY,w = 10,h = 10 )
 	{
 		this.x = 5000;
 		this.y = 5000;
-		this.w = 10;
-		this.h = 10;
+		this.w = w;
+		this.h = h;
 		this.c = "#FF0000";
 		this.a = 1.0;
 		this.vx = scrollVX;
