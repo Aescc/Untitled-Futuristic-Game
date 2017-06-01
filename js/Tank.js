@@ -6,7 +6,7 @@ class Tank
 		this.y = y;
 		this.w = 40;
 		this.h = 40;
-		this.HP = 10;
+		this.HP = 20;
 		this.HPORIG = this.HP;
 		this.xORIG = this.x;
 		this.yORIG = this.y;
@@ -28,9 +28,9 @@ class Tank
 		this.imageDir = 0;
 		this.shootDir = 0;
 		this.shootTimer = 0;
-		this.shootTimerMax = 100;
+		this.shootTimerMax = Random( 90,110 );
 		this.moveTimer = 0;
-		this.moveTimerMax = 150;
+		this.moveTimerMax = Random( 50,250 );
 		this.vx = 0;
 		this.vy = 0;
 	}
@@ -80,7 +80,11 @@ class Tank
 		}
 		if( this.HP < 1 )
 		{
-			this.HP = this.HPORIG;
+			this.SpawnGold( Random( 1,4 ) );
+			this.Respawn();
+		}
+		if( this.x < 0 )
+		{
 			this.Respawn();
 		}
 	}
@@ -95,8 +99,9 @@ class Tank
 	}
 	Respawn()
 	{
-		this.x = this.xORIG;
-		this.y = this.yORIG;
+		this.HP = this.HPORIG;
+		this.x = Random( this.cWidth, this.cWidth * 2 ); // this.xORIG;
+		this.y = Random( 0,this.cHeight - this.h ); // this.yORIG;
 	}
 	GetPos()
 	{
@@ -160,6 +165,35 @@ class Tank
 	}
 	Hurt( amount )
 	{
+		var particleNum = 0;
+		const MAX_PARTICLES = Random( 1,3 );
+		for( var i = 0; i < bulletParticles.length; ++i )
+		{
+			if( bulletParticles[i].GetInfo() && particleNum < MAX_PARTICLES )
+			{
+				const randX = Random( this.x,this.x + this.w / 2 );
+				const randY = Random( this.y,this.y + this.h / 2 );
+				bulletParticles[i].SetPos( { x:randX,y:randY } );
+				++particleNum;
+			}
+		}
 		this.HP -= amount;
+	}
+	SpawnGold( amount )
+	{
+		var goldCounter = 0;
+		const goldCounterMax = amount;
+		// const goldX = this.x + this.w / 2;
+		// const goldY = this.y + this.h / 2;
+		const goldX = Random( this.x,this.x + this.w / 2 );
+		const goldY = Random( this.y,this.y + this.h / 2 );
+		golds.forEach( function( gold )
+		{
+			if( gold.GetInfo() && goldCounter < goldCounterMax )
+			{
+				gold.SetPos( { x:goldX,y:goldY } );
+				++goldCounter;
+			}
+		});
 	}
 }

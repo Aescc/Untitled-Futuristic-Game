@@ -9,6 +9,8 @@ class Turret
 		this.w = 40;
 		this.h = 40;
 		this.c = "#1050D0";
+		this.HP = 40;
+		this.HPORIG = this.HP;
 		this.scrollVX = scrollVX;
 		this.scrollVY = scrollVY;
 		this.cWidth = cWidth;
@@ -27,7 +29,7 @@ class Turret
 		this.imageDir = 0;
 		this.shootDir = 0;
 		this.shootTimer = 0;
-		this.shootTimerMax = 100;
+		this.shootTimerMax = Random( 65,85 );
 	}
 	InitImages()
 	{
@@ -94,6 +96,15 @@ class Turret
 				}
 			}
 		}
+		if( this.HP < 1 )
+		{
+			this.SpawnGold( Random( 5,10 ) );
+			this.Respawn();
+		}
+		if( this.x < 0 )
+		{
+			this.Respawn();
+		}
 	}
 	Draw()
 	{
@@ -102,8 +113,9 @@ class Turret
 	}
 	Respawn()
 	{
-		this.x = this.xORIG;
-		this.y = this.yORIG;
+		this.HP = this.HPORIG;
+		this.x = Random( this.cWidth, this.cWidth * 2 ); // this.xORIG;
+		this.y = Random( 0,this.cHeight - this.h ); // this.yORIG;
 	}
 	GetPos()
 	{
@@ -150,5 +162,38 @@ class Turret
 		{ //  Must come at the end because of 180 to -180 weirdness. 
 			this.imageDir = 2;
 		}
+	}
+	Hurt( amount )
+	{
+		var particleNum = 0;
+		const MAX_PARTICLES = Random( 1,3 );
+		for( var i = 0; i < bulletParticles.length; ++i )
+		{
+			if( bulletParticles[i].GetInfo() && particleNum < MAX_PARTICLES )
+			{
+				const randX = Random( this.x,this.x + this.w / 2 );
+				const randY = Random( this.y,this.y + this.h / 2 );
+				bulletParticles[i].SetPos( { x:randX,y:randY } );
+				++particleNum;
+			}
+		}
+		this.HP -= amount;
+	}
+	SpawnGold( amount )
+	{
+		var goldCounter = 0;
+		const goldCounterMax = amount;
+		// const goldX = this.x + this.w / 2;
+		// const goldY = this.y + this.h / 2;
+		const goldX = Random( this.x,this.x + this.w / 2 );
+		const goldY = Random( this.y,this.y + this.h / 2 );
+		golds.forEach( function( gold )
+		{
+			if( gold.GetInfo() && goldCounter < goldCounterMax )
+			{
+				gold.SetPos( { x:goldX,y:goldY } );
+				++goldCounter;
+			}
+		});
 	}
 }

@@ -4,8 +4,9 @@ const context = canvas.getContext( '2d' );
 // Numbers
 var scrollSpeedX = -0.7;
 var scrollSpeedY = 0;
-var fireCounter = 0;
-var fireCounterMax = 4;
+var fireCounter				= 30;
+var fireCounterMax			= 30;
+const fireCounterMaxORIG	= 30;
 var totalGold = 0;
 
 // Booleans
@@ -233,21 +234,51 @@ var particles =
 ];
 var bulletParticles =
 [
-	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
-	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
-	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
-	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
-	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
-	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
-	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
-	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
-	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
-	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
-	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
-	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
-	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
-	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 ),
-	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY,2,2 )
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
 ];
 
 // Objects
@@ -394,6 +425,7 @@ function Update()
 	}
 	player.SetImageDir( mouse.x,mouse.y );
 	background.Update();
+	fireCounterMax = Math.floor( fireCounterMaxORIG - totalGold / 3 );
 	rocks.forEach( function( rock )
 	{
 		rock.Update();
@@ -438,10 +470,23 @@ function Update()
 	{
 		particle.Update();
 	} );
+	bulletParticles.forEach( function( bulletParticle )
+	{
+		bulletParticle.Update();
+	} );
 	turrets.forEach( function( turret )
 	{
 		turret.Update();
 		turret.SetImageDir( player.GetPos().x,player.GetPos().y );
+		bullets.forEach( function( bullet )
+		{
+			if( HitTest( turret.GetPos().x,turret.GetPos().y,turret.GetPos().w,turret.GetPos().h,
+			bullet.GetPos().x,bullet.GetPos().y,bullet.GetPos().w,bullet.GetPos().h ) )
+		{
+			turret.Hurt( 1 );
+			bullet.Respawn();
+		}
+		} );
 	} );
 	tanks.forEach( function( tank )
 	{
@@ -521,6 +566,10 @@ function Draw()
 	particles.forEach( function( particle )
 	{
 		particle.Draw();
+	} );
+	bulletParticles.forEach( function( bulletParticle )
+	{
+		bulletParticle.Draw();
 	} );
 	bullets.forEach( function( bullet )
 	{
