@@ -428,7 +428,7 @@ function Update()
 	background.Update();
 	// TODO: Fix gold so it gives a greater "deal" or percent the less gold there is,
 	// and a lower ratio the more gold there is.
-	fireCounterMax = Math.floor( fireCounterMaxORIG - totalGold );
+	fireCounterMax = Math.floor( fireCounterMaxORIG - ( Math.sqrt( totalGold ) * 2) );
 	rocks.forEach( function( rock )
 	{
 		rock.Update();
