@@ -423,9 +423,12 @@ function Update()
 			player.Move( 3 );
 		}
 	}
+	player.Update();
 	player.SetImageDir( mouse.x,mouse.y );
 	background.Update();
-	fireCounterMax = Math.floor( fireCounterMaxORIG - totalGold / 3 );
+	// TODO: Fix gold so it gives a greater "deal" or percent the less gold there is,
+	// and a lower ratio the more gold there is.
+	fireCounterMax = Math.floor( fireCounterMaxORIG - totalGold );
 	rocks.forEach( function( rock )
 	{
 		rock.Update();

@@ -1,12 +1,12 @@
 class Particle
 {
-	constructor( cWidth,cHeight,scrollVX,scrollVY,w = 10,h = 10 )
+	constructor( cWidth,cHeight,scrollVX,scrollVY,w = 5,h = 5 )
 	{
 		this.x = 5000;
 		this.y = 5000;
 		this.w = w;
 		this.h = h;
-		this.c = "#FF0000";
+		this.c = "#FF" + Random( 11,22 ) + Random( 11,22 );
 		this.a = 1.0;
 		this.vx = scrollVX;
 		this.vy = scrollVY;
@@ -39,6 +39,7 @@ class Particle
 	}
 	Draw()
 	{
+		Rect( this.x - 1,this.y - 1,this.h + 2,this.w + 2,"#000",this.a );
 		Rect( this.x,this.y,this.w,this.h,this.c,this.a );
 	}
 	Respawn()
@@ -62,6 +63,7 @@ class Particle
 	{
 		this.x = pos.x;
 		this.y = pos.y;
+		this.c = pos.c;
 		this.randomMoveCounter = 0;
 		this.a = 1.0;
 	}

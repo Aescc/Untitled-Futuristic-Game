@@ -9,7 +9,7 @@ class Turret
 		this.w = 40;
 		this.h = 40;
 		this.c = "#1050D0";
-		this.HP = 40;
+		this.HP = 30;
 		this.HPORIG = this.HP;
 		this.scrollVX = scrollVX;
 		this.scrollVY = scrollVY;
@@ -173,7 +173,8 @@ class Turret
 			{
 				const randX = Random( this.x,this.x + this.w / 2 );
 				const randY = Random( this.y,this.y + this.h / 2 );
-				bulletParticles[i].SetPos( { x:randX,y:randY } );
+				const randC = "#FF" + Random( 11,44 ) + Random( 11,22 );
+				bulletParticles[i].SetPos( { x:randX,y:randY,c:randC } );
 				++particleNum;
 			}
 		}

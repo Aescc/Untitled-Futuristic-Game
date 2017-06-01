@@ -173,7 +173,8 @@ class Tank
 			{
 				const randX = Random( this.x,this.x + this.w / 2 );
 				const randY = Random( this.y,this.y + this.h / 2 );
-				bulletParticles[i].SetPos( { x:randX,y:randY } );
+				const randC = "#FF" + Random( 33,77 ) + Random( 11,33 );
+				bulletParticles[i].SetPos( { x:randX,y:randY,c:randC } );
 				++particleNum;
 			}
 		}

@@ -22,6 +22,8 @@ class Player
 			new Image()
 		];
 		this.imageDir = 3;
+		this.flameX = this.x;
+		this.flameY = this.y;
 	}
 	InitImages()
 	{
@@ -29,11 +31,26 @@ class Player
 		this.images[1].src = "images/player/player1.png";
 		this.images[2].src = "images/player/player2.png";
 		this.images[3].src = "images/player/player3.png";
-		// TODO: Add the remaining player sprites for different directions.
 		this.images[4].src = "images/player/player4.png";
 		this.images[5].src = "images/player/player5.png";
 		this.images[6].src = "images/player/player6.png";
 		this.images[7].src = "images/player/player7.png";
+	}
+	Update()
+	{
+		var particleNum = 0;
+		const MAX_PARTICLES = Random( 0,1 );
+		for( var i = 0; i < particles.length; ++i )
+		{
+			if( particles[i].GetInfo() && particleNum < MAX_PARTICLES )
+			{
+				// const randX = Random( this.x,this.x + this.w / 2 );
+				// const randY = Random( this.y,this.y + this.h / 2 );
+				const randColor = "#FF" + Random( 33,77 ) + Random( 11,33 );
+				particles[i].SetPos( { x:this.flameX,y:this.flameY,c:randColor } );
+				++particleNum;
+			}
+		}
 	}
 	Move( dir )
 	{
@@ -100,37 +117,54 @@ class Player
 	SetImageDir( mouseX,mouseY )
 	{
 		const angle = FindAngle( this.x + this.w / 2,this.y + this.h / 2,mouseX,mouseY );
+		const offset = 10;
 		if( angle > -90 - 30 && angle < - 90 + 30)
 		{
 			this.imageDir = 0;
+			this.flameX = Random( this.x,this.x + this.w );
+			this.flameY = this.y + this.h + Random( -offset,offset );
 		}
 		else if( angle > 90 - 30 && angle < 90 + 30 )
 		{
 			this.imageDir = 1;
+			this.flameX = Random( this.x,this.x + this.w );
+			this.flameY = this.y + Random( -offset,offset );
 		}
 		else if( angle > 0 - 30 && angle < 0 + 30)
 		{
 			this.imageDir = 3;
+			this.flameX = this.x + Random( -offset,offset );
+			this.flameY = Random( this.y,this.y + this.h );
 		}
 		else if( angle > -60 && angle < -30 )
 		{
 			this.imageDir = 4;
+			this.flameX = this.x + Random( -offset,offset );
+			this.flameY = this.y + this.h + Random( -offset,offset );
 		}
 		else if( angle > 30 && angle < 60 )
 		{
 			this.imageDir = 5;
+			this.flameX = this.x + Random( -offset,offset );
+			this.flameY = this.y + Random( -offset,offset );
 		}
 		else if( angle > 120 && angle < 150 )
 		{
 			this.imageDir = 6;
+			this.flameX = this.x + this.w + Random( -offset,offset );
+			this.flameY = this.y + Random( -offset,offset );
 		}
 		else if( angle > -150 && angle < -120 )
 		{
 			this.imageDir = 7;
+			this.flameX = this.x + this.w + Random( -offset,offset );
+			this.flameY = this.y + this.h + Random( -offset,offset );
 		}
 		else if( angle > 180 - 30 || angle < -180 + 30 )
 		{ //  Must come at the end because of 180 to -180 weirdness. 
 			this.imageDir = 2;
+			this.flameX = this.x + this.w + Random( -offset,offset );
+			this.flameY = Random( this.y,this.y + this.h );
 		}
 	}
 }

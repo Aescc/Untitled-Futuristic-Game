@@ -6,7 +6,7 @@ class Bullet
 		this.y = 5000;
 		this.w = 40;
 		this.h = 40;
-		this.c = "#F00";
+		this.c = "#FF0000"; // Particle color.
 		this.s = 20;
 		this.rot = 0;
 		this.timer = 0;
@@ -25,12 +25,14 @@ class Bullet
 			this.image.src = "images/bullet/bullet0.png";
 			this.s = 20;
 			this.timerMax = 15;
+			this.c = "#FF" + Random( 11,44 ) + Random( 11,22 );
 		}
 		else if( this.type === 1 )
 		{
 			this.image.src = "images/bullet/bullet1.png";
 			this.s = 5;
 			this.timerMax = 250;
+			this.c = "#" + Random( 11,44 ) + "FF" + Random( 11,22 );
 		}
 	}
 	Update()
@@ -55,6 +57,22 @@ class Bullet
 		else
 		{
 			this.isUsable = true;
+		}
+		var particleNum = 0;
+		const MAX_PARTICLES = Random( 0,1 );
+		if( Random( 0,2 ) )
+		{
+			++particleNum;
+		}
+		for( var i = 0; i < bulletParticles.length; ++i )
+		{
+			if( bulletParticles[i].GetInfo() && particleNum < MAX_PARTICLES )
+			{
+				const randX = Random( this.x,this.x + this.w );
+				const randY = Random( this.y,this.y + this.h );
+				bulletParticles[i].SetPos( { x:randX,y:randY,c:this.c } );
+				++particleNum;
+			}
 		}
 	}
 	Draw()
