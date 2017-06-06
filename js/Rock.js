@@ -8,11 +8,11 @@ class Rock
 		this.yORIG = y;
 		this.w = 40;
 		this.h = 40;
-		this.HP = 10;
+		this.HP = 3;
 		this.HPORIG = this.HP;
 		this.moveType = moveType;
 		// this.c = "#630";
-		this.c = "#555";
+		this.c = "#55F";
 		this.isUsable = false;
 		this.scrollVX = scrollVX;
 		this.scrollVY = scrollVY;
@@ -20,6 +20,29 @@ class Rock
 		this.vy = 0;
 		this.cWidth = cWidth - this.w;
 		this.cHeight = cHeight - this.w;
+		this.images =
+		[
+			new Image(),
+			new Image(),
+			new Image(),
+			new Image(),
+			new Image(),
+			new Image(),
+			new Image(),
+			new Image()
+		];
+		this.imageDir = 0;
+	}
+	Init()
+	{
+		this.images[0].src = "images/plane/plane0.png";
+		this.images[1].src = "images/plane/plane1.png";
+		this.images[2].src = "images/plane/plane2.png";
+		this.images[3].src = "images/plane/plane3.png";
+		this.images[4].src = "images/plane/plane4.png";
+		this.images[5].src = "images/plane/plane5.png";
+		this.images[6].src = "images/plane/plane6.png";
+		this.images[7].src = "images/plane/plane7.png";
 	}
 	Update()
 	{
@@ -48,21 +71,37 @@ class Rock
 		else
 		{
 			// this.Respawn();
-			this.x = -5000;
+			this.x = -100;
 			this.isUsable = true;
 		}
 		if( this.HP < 1 )
 		{
 			// this.Respawn();
-			this.SpawnGold( Random( 1,4 ) );
+			this.SpawnGold( Random( 0,2 ) );
 			this.SpawnParticles( Random( 4,9 ) );
-			this.x = -5000;
+			this.HP = this.HPORIG;
+			this.x = -100;
 			this.isUsable = true;
+		}
+		if( this.x < 0 - 1000 )
+		{
+			this.Respawn();
+		}
+		// Update Image Direction.
+		{
+			const offset = 30;
+			if( this.y < 321 && this.y > 230 + offset )
+				this.imageDir = 7;
+			else if( this.y < 230 + offset && this.y > 230 - offset )
+				this.imageDir = 2;
+			else if( this.y < 230 - offset && this.y > 138 )
+				this.imageDir = 6;
 		}
 	}
 	Draw()
 	{
-		Rect( this.x,this.y,this.w,this.h,this.c );
+		// Rect( this.x,this.y,this.w,this.h,this.c );
+		context.drawImage( this.images[this.imageDir],this.x,this.y,this.w,this.h );
 	}
 	Respawn()
 	{
@@ -81,11 +120,9 @@ class Rock
 			}
 		});
 		*/
-		this.x = Random( 0,this.cWidth ) + this.cWidth;
-		this.y = Random( 0,this.cHeight - this.h );
-		this.moveType = Random( 0,2 );
-		// this.x = this.xORIG;
-		// this.y = this.yORIG;
+		this.x = this.xORIG; // Random( 0,this.cWidth ) + this.cWidth;
+		this.y = this.yORIG; // Random( 0,this.cHeight - this.h );
+		// this.moveType = Random( 0,2 );
 	}
 	SpawnGold( amount )
 	{
@@ -106,13 +143,14 @@ class Rock
 	{
 		var particleCounter = 0;
 		const particleCounterMax = amount;
-		const particleX = this.x;
-		const particleY = this.y;
+		const particleX = this.x + this.w / 2;
+		const particleY = this.y + this.h / 2;
+		const particleC = this.c;
 		particles.forEach( function( particle )
 		{
 			if( particle.GetInfo() && particleCounter < particleCounterMax )
 			{
-				particle.SetPos( { x:particleX,y:particleY } );
+				particle.SetPos( { x:particleX,y:particleY,c:particleC } );
 				++particleCounter;
 			}
 		} );

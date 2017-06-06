@@ -16,14 +16,9 @@ var firing = false;
 var keyMap = [];
 var rocks =
 [
-	// new Rock( canvas.width + 100,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	// new Rock( canvas.width + 200,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	// new Rock( canvas.width + 300,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	// new Rock( canvas.width + 400,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	// new Rock( canvas.width + 500,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	// new Rock( canvas.width + 600,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	// new Rock( canvas.width + 700,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
-	// new Rock( canvas.width + 800,0,Random( 0,2 ),canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
+	new Rock( canvas.width + 300,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 1600,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
+	new Rock( canvas.width + 2900,0,1,canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
 ];
 var golds =
 [
@@ -359,6 +354,10 @@ function Init( firstTime = false )
 		{
 			tank.InitImages();
 		} );
+		rocks.forEach( function( rock )
+		{
+			rock.Init();
+		} );
 		console.log( "Initialization complete!" );
 	}
 	else
@@ -527,22 +526,7 @@ function Update()
 			}
 		}
 	}
-	var willResetRocks = true;
-	// TODO: Make more enemies with different AI... Maybe turrets or something?
-	rocks.forEach( function( rock )
-	{
-		if( !rock.GetUsable() )
-		{
-			willResetRocks = false;
-		}
-	} );
-	if( willResetRocks )
-	{
-		rocks.forEach( function( rock )
-		{
-			rock.Respawn();
-		} );
-	}
+	// console.log( rocks[0].y );
 }
 
 function Draw()
