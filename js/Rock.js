@@ -32,6 +32,7 @@ class Rock
 			new Image()
 		];
 		this.imageDir = 0;
+		this.HPBar = new HealthBar();
 	}
 	Init()
 	{
@@ -76,6 +77,8 @@ class Rock
 		}
 		if( this.HP < 1 )
 		{
+			// scoreAdd += 50;
+			scoreAdd += Random( 20,70 );
 			// this.Respawn();
 			this.SpawnGold( Random( 0,2 ) );
 			this.SpawnParticles( Random( 4,9 ) );
@@ -97,11 +100,14 @@ class Rock
 			else if( this.y < 230 - offset && this.y > 138 )
 				this.imageDir = 6;
 		}
+		this.HPBar.SetPos( this.x,this.y + this.h );
+		this.HPBar.SetHP( this.HP / this.HPORIG );
 	}
 	Draw()
 	{
 		// Rect( this.x,this.y,this.w,this.h,this.c );
 		context.drawImage( this.images[this.imageDir],this.x,this.y,this.w,this.h );
+		this.HPBar.Draw();
 	}
 	Respawn()
 	{

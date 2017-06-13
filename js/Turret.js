@@ -30,6 +30,7 @@ class Turret
 		this.shootDir = 0;
 		this.shootTimer = 0;
 		this.shootTimerMax = Random( 65,85 );
+		this.HPBar = new HealthBar();
 	}
 	InitImages()
 	{
@@ -98,6 +99,8 @@ class Turret
 		}
 		if( this.HP < 1 )
 		{
+			// scoreAdd += 500;
+			scoreAdd += Random( 250,400 );
 			this.SpawnGold( Random( 5,10 ) );
 			this.Respawn();
 		}
@@ -110,6 +113,7 @@ class Turret
 	{
 		// Rect( this.x,this.y,this.w,this.h,this.c );
 		context.drawImage( this.images[this.imageDir],this.x,this.y,this.w,this.h );
+		this.HPBar.Draw();
 	}
 	Respawn()
 	{
@@ -128,6 +132,8 @@ class Turret
 	}
 	SetImageDir( targetX,targetY )
 	{
+		this.HPBar.SetPos( this.x,this.y + this.h );
+		this.HPBar.SetHP( this.HP / this.HPORIG );
 		const angle = FindAngle( this.x + this.w / 2,this.y + this.h / 2,targetX,targetY );
 		this.shootDir = angle;
 		if( angle > -90 - 30 && angle < - 90 + 30)

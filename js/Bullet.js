@@ -16,7 +16,7 @@ class Bullet
 		this.cHeight = cHeight;
 		this.image = new Image();
 		this.type = type;
-		this.sound = new Audio( "audio/pew.wav");
+		this.sound = new Audio( "audio/pew0.wav" );
 	}
 	InitImages()
 	{
@@ -25,6 +25,7 @@ class Bullet
 			this.image.src = "images/bullet/bullet0.png";
 			this.s = 20;
 			this.timerMax = 15;
+			this.sound = new Audio( "audio/pew1.wav" );
 			this.c = "#FF" + Random( 11,44 ) + Random( 11,22 );
 		}
 		else if( this.type === 1 )
@@ -32,6 +33,7 @@ class Bullet
 			this.image.src = "images/bullet/bullet1.png";
 			this.s = 5;
 			this.timerMax = 250;
+			this.sound = new Audio( "audio/pew0.wav" );
 			this.c = "#" + Random( 11,44 ) + "FF" + Random( 11,22 );
 		}
 	}

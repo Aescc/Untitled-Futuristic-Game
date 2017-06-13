@@ -8,6 +8,8 @@ var fireCounter				= 30;
 var fireCounterMax			= 30;
 const fireCounterMaxORIG	= 30;
 var totalGold = 0;
+var totalScore = 0;
+var scoreAdd = 0;
 
 // Booleans
 var firing = false;
@@ -281,6 +283,9 @@ var mouse = { x: 0,y: 0 }
 var player = new Player( 50,canvas.height / 2 );
 var background = new BG( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY );
 
+// Audio
+const ouch = new Audio( "audio/ouch0.wav" );
+
 window.onload = function()
 {
 	const fps = 30;
@@ -364,6 +369,9 @@ function Init( firstTime = false )
 	{
 		
 	}
+	totalGold = 0;
+	totalScore = 0;
+	scoreAdd = 0;
 }
 
 function CheckClick()
@@ -435,7 +443,6 @@ function Update()
 			rock.GetPos().x,rock.GetPos().y,rock.GetPos().w,rock.GetPos().h ) )
 		{
 			Init();
-			totalGold = 0;
 		}
 		bullets.forEach( function( bullet )
 		{
@@ -443,6 +450,8 @@ function Update()
 				rock.GetPos().x,rock.GetPos().y,rock.GetPos().w,rock.GetPos().h ) )
 			{
 				// rock.Respawn();
+				ouch.currentTime = 0;
+				ouch.play();
 				rock.Hurt( 1 );
 				bullet.Respawn();
 			}
@@ -455,7 +464,6 @@ function Update()
 			enemyBullet.GetPos().x,enemyBullet.GetPos().y,enemyBullet.GetPos().w,enemyBullet.GetPos().h ) )
 		{
 			Init();
-			totalGold = 0;
 		}
 	} );
 	golds.forEach( function( gold )
@@ -485,6 +493,8 @@ function Update()
 			if( HitTest( turret.GetPos().x,turret.GetPos().y,turret.GetPos().w,turret.GetPos().h,
 			bullet.GetPos().x,bullet.GetPos().y,bullet.GetPos().w,bullet.GetPos().h ) )
 		{
+			ouch.currentTime = 0;
+			ouch.play();
 			turret.Hurt( 1 );
 			bullet.Respawn();
 		}
@@ -499,6 +509,8 @@ function Update()
 			if( HitTest( tank.GetPos().x,tank.GetPos().y,tank.GetPos().w,tank.GetPos().h,
 			bullet.GetPos().x,bullet.GetPos().y,bullet.GetPos().w,bullet.GetPos().h ) )
 		{
+			ouch.currentTime = 0;
+			ouch.play();
 			tank.Hurt( 1 );
 			bullet.Respawn();
 		}
@@ -519,14 +531,19 @@ function Update()
 			{
 				rotation = FindAngle	( player.GetPos().x,player.GetPos().y,mouse.x,mouse.y );
 				bullets[i].SetPos		( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation } );
-				bullets[i + 1].SetPos	( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation + 5 } );
-				bullets[i + 2].SetPos	( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation - 5 } );
+				bullets[i + 1].SetPos	( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation + 10 } );
+				bullets[i + 2].SetPos	( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation - 10 } );
 				isDone = true;
 				fireCounter = 0;
 			}
 		}
 	}
 	// console.log( rocks[0].y );
+	if( scoreAdd >= 1 )
+	{
+		++totalScore;
+		--scoreAdd;
+	}
 }
 
 function Draw()
@@ -567,4 +584,5 @@ function Draw()
 		enemyBullet.Draw();
 	} );
 	player.Draw();
+	Text( 3,20,"Score: " + totalScore,"#FFF","20PX Arial" );
 }

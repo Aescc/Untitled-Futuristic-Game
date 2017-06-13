@@ -16,6 +16,7 @@ class Gold
 		this.randomMoveCounterMax = 5;
 		this.randomMoveVX = Random( -5,5 );
 		this.randomMoveVY = Random( -5,5 );
+		this.a = 1.0;
 	}
 	Update()
 	{
@@ -31,13 +32,19 @@ class Gold
 		{
 			
 		}
+		if( this.a >= 0.003 )
+			this.a -= 0.003;
+		else
+			this.Respawn();
 	}
 	Draw()
 	{
-		Rect( this.x,this.y,this.w,this.h,this.c );
+		// Rect( this.x - 1,this.y - 1,this.w + 2,this.h + 2,"#000" );
+		Rect( this.x,this.y,this.w,this.h,this.c,this.a );
 	}
 	Respawn()
 	{
+		this.a = 1.0;
 		this.x = 5000;
 	}
 	GetInfo()
@@ -67,5 +74,6 @@ class Gold
 		this.x = pos.x;
 		this.y = pos.y;
 		this.randomMoveCounter = 0;
+		this.a = 1.0;
 	}
 }

@@ -33,6 +33,7 @@ class Tank
 		this.moveTimerMax = Random( 50,250 );
 		this.vx = 0;
 		this.vy = 0;
+		this.HPBar = new HealthBar();
 	}
 	InitImages()
 	{
@@ -80,6 +81,8 @@ class Tank
 		}
 		if( this.HP < 1 )
 		{
+			// scoreAdd += 200;
+			scoreAdd += Random( 100,170 );
 			this.SpawnGold( Random( 1,4 ) );
 			this.Respawn();
 		}
@@ -96,6 +99,7 @@ class Tank
 			// Rect( this.x,this.y,this.w,this.h,this.c );
 			context.drawImage( this.images[this.imageDir],this.x,this.y,this.w,this.h );
 		}
+		this.HPBar.Draw();
 	}
 	Respawn()
 	{
@@ -109,6 +113,8 @@ class Tank
 	}
 	SetImageDir( targetX,targetY )
 	{
+		this.HPBar.SetPos( this.x,this.y + this.h );
+		this.HPBar.SetHP( this.HP / this.HPORIG );
 		const angle = FindAngle( this.x + this.w / 2,this.y + this.h / 2,targetX,targetY );
 		this.shootDir = angle;
 		const min = -2;
