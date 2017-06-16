@@ -33,7 +33,7 @@ class Gold
 			
 		}
 		if( this.a >= 0.003 )
-			this.a -= 0.003;
+			this.a -= 0.01 * Math.random();
 		else
 			this.Respawn();
 	}

@@ -86,7 +86,7 @@ class Tank
 			this.SpawnGold( Random( 1,4 ) );
 			this.Respawn();
 		}
-		if( this.x < 0 )
+		if( this.x + this.w < 0 )
 		{
 			this.Respawn();
 		}

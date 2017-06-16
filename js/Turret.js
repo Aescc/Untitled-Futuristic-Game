@@ -104,7 +104,7 @@ class Turret
 			this.SpawnGold( Random( 5,10 ) );
 			this.Respawn();
 		}
-		if( this.x < 0 )
+		if( this.x + this.w < 0 )
 		{
 			this.Respawn();
 		}

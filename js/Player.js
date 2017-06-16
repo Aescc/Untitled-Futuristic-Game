@@ -24,6 +24,11 @@ class Player
 		this.imageDir = 3;
 		this.flameX = this.x;
 		this.flameY = this.y;
+		this.HP = 10;
+		this.HPORIG = 10;
+		this.HPBar = new HealthBar();
+		this.deathCounter = 0;
+		this.deathCounterMax = 70;
 	}
 	InitImages()
 	{
@@ -51,24 +56,56 @@ class Player
 				++particleNum;
 			}
 		}
+		if( this.HP <= 0 )
+		{
+			var particleNum = 0;
+			const MAX_PARTICLES = Random( 5,15 );
+			for( var i = 0; i < bulletParticles.length; ++i )
+			{
+				if( bulletParticles[i].GetInfo() && particleNum < MAX_PARTICLES )
+				{
+					const randX = Random( this.x,this.x + this.w / 2 );
+					const randY = Random( this.y,this.y + this.h / 2 );
+					const randRGB = Random( 44,99 );
+					var randC = "#" + randRGB + randRGB + randRGB;
+					if( !Random( 0,7 ) )
+						randC = "#" + Random( 11,22 ) + "DDFF";
+					bulletParticles[i].SetPos( { x:randX,y:randY,c:randC } );
+					++particleNum;
+				}
+			}
+			if( this.deathCounter > this.deathCounterMax )
+			{
+				this.HP = this.HPORIG;
+				this.deathCounter = 0;
+				Init();
+			}
+			else
+				++this.deathCounter;
+		}
+		this.HPBar.SetPos( this.x,this.y + this.h );
+		this.HPBar.SetHP( this.HP / this.HPORIG );
 	}
 	Move( dir )
 	{
-		if( dir === 0 )
+		if( this.HP > 0 )
 		{
-			this.y -= this.s;
-		}
-		else if( dir === 1 )
-		{
-			this.y += this.s;
-		}
-		else if( dir === 2 )
-		{
-			this.x -= this.s;
-		}
-		else if( dir === 3 )
-		{
-			this.x += this.s;
+			if( dir === 0 )
+			{
+				this.y -= this.s;
+			}
+			else if( dir === 1 )
+			{
+				this.y += this.s;
+			}
+			else if( dir === 2 )
+			{
+				this.x -= this.s;
+			}
+			else if( dir === 3 )
+			{
+				this.x += this.s;
+			}
 		}
 	}
 	CheckBounds( dir,limit ) // True means inside bounds.
@@ -97,8 +134,11 @@ class Player
 	}
 	Draw()
 	{
-		// Rect( this.x,this.y,this.w,this.h,this.c );
-		context.drawImage( this.images[this.imageDir],this.x,this.y,this.w,this.h );
+		if( this.HP > 0 )
+		{
+			context.drawImage( this.images[this.imageDir],this.x,this.y,this.w,this.h );
+			this.HPBar.Draw();
+		}
 	}
 	GetPos()
 	{
@@ -113,6 +153,10 @@ class Player
 	{
 		this.x = pos.x;
 		this.y = pos.y;
+	}
+	Hurt( amount )
+	{
+		this.HP -= amount;
 	}
 	SetImageDir( mouseX,mouseY )
 	{
@@ -166,5 +210,9 @@ class Player
 			this.flameX = this.x + this.w + Random( -offset,offset );
 			this.flameY = Random( this.y,this.y + this.h );
 		}
+	}
+	GetHP()
+	{
+		return this.HP;
 	}
 }
