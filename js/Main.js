@@ -415,14 +415,16 @@ var bulletParticles =
 	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY ),
 	new Particle( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY )
 ];
+var titleColors = [];
 
 // Objects
 var mouse = { x: 0,y: 0 }
 var player = new Player( 50,canvas.height / 2 );
 var background = new BG( canvas.width,canvas.height,scrollSpeedX,scrollSpeedY );
+var soundBar = new SoundBar( canvas.width / 3,canvas.height - 50 );
 
 // Audio
-const ouch = new Audio( "audio/ouch0.wav" );
+var ouch = new Audio( "audio/ouch0.wav" );
 
 window.onload = function()
 {
@@ -448,6 +450,7 @@ window.onload = function()
 
 function Init( firstTime = false )
 {
+	SetVol();
 	Update();
 	started = false;
 	player.SetPos( { x:50,y:canvas.height / 2 } );
@@ -483,6 +486,7 @@ function Init( firstTime = false )
 	{
 		particle.Respawn();
 	} );
+	DrawColors();
 	if( firstTime )
 	{
 		// Pixel perfect!
@@ -605,7 +609,7 @@ function Update()
 					// rock.Respawn();
 					ouch.currentTime = 0;
 					ouch.play();
-					rock.Hurt( 1 );
+					rock.Hurt( Random( 1,2 ) );
 					bullet.Respawn();
 				}
 			} );
@@ -652,7 +656,7 @@ function Update()
 			{
 				ouch.currentTime = 0;
 				ouch.play();
-				turret.Hurt( 1 );
+				turret.Hurt( Random( 1,2 ) );
 				bullet.Respawn();
 			}
 			} );
@@ -668,7 +672,7 @@ function Update()
 			{
 				ouch.currentTime = 0;
 				ouch.play();
-				tank.Hurt( 1 );
+				tank.Hurt( Random( 1,2 ) );
 				bullet.Respawn();
 			}
 			} );
@@ -706,11 +710,17 @@ function Update()
 	{
 		// Start game here.
 	}
+	soundBar.Update();
 	++buffer;
 	if( keyMap[32] && buffer > BUFFER_MAX )
 	{
+		DrawColors();
 		started = !started;
 		buffer = 0;
+	}
+	if( firing && !started )
+	{
+		SetVol();
 	}
 }
 
@@ -756,6 +766,12 @@ function Draw()
 	if( !started )
 	{
 		Rect( 0,0,canvas.width,canvas.height,"#111",0.3 );
-		Text( canvas.width / 5,canvas.height / 2,"Press [space]!","#FFF","70PX Helvetica" );
+		// Text( canvas.width / 5,canvas.height / 2,"Press [space]!","#FFF","70PX Helvetica" );
+		// context.drawImage( TITLE_PIC,50,50 );
+		DrawTitle( 2,3,3 );
+		DrawTitle( 2,-3,-3 );
+		DrawTitle( 0,0,0 );
+		DrawPause();
+		soundBar.Draw();
 	}
 }

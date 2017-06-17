@@ -58,6 +58,7 @@ class Player
 		}
 		if( this.HP <= 0 )
 		{
+			ouch.play();
 			var particleNum = 0;
 			const MAX_PARTICLES = Random( 5,15 );
 			for( var i = 0; i < bulletParticles.length; ++i )

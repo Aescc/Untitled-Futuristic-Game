@@ -119,4 +119,8 @@ class Bullet
 		this.y = pos.y;
 		this.rot = pos.rot;
 	}
+	SetVol( vol )
+	{
+		this.sound.volume = vol;
+	}
 }
