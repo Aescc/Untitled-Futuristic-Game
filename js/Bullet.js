@@ -47,6 +47,7 @@ class Bullet
 		this.y > 0 && this.y < this.cHeight )
 		{
 			this.isUsable = false;
+			/*
 			if( this.timer > this.timerMax )
 			{
 				this.Respawn();
@@ -55,6 +56,7 @@ class Bullet
 			{
 				++this.timer;
 			}
+			*/
 		}
 		else
 		{

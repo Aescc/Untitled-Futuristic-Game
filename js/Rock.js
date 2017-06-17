@@ -179,4 +179,9 @@ class Rock
 	{
 		this.HP -= amount;
 	}
+	SetPos( pos )
+	{
+		this.x = pos.x;
+		this.y = pos.y;
+	}
 }

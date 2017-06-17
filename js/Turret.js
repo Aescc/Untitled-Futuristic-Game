@@ -203,4 +203,9 @@ class Turret
 			}
 		});
 	}
+	SetPos( pos )
+	{
+		this.x = pos.x;
+		this.y = pos.y;
+	}
 }

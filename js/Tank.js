@@ -203,4 +203,9 @@ class Tank
 			}
 		});
 	}
+	SetPos( pos )
+	{
+		this.x = pos.x;
+		this.y = pos.y;
+	}
 }

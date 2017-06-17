@@ -12,9 +12,10 @@ function DrawColors()
 	while( --i )
 	{
 		titleColors[i] = "#" + Random( 11,33 ) + Random( 77,99 ) + "DD";
+		titleColors2[i] = "#DD" + Random( 77,99 ) + Random( 11,33 );
 	}
 }
-
+	
 function DrawPause()
 {
 	GetColor = function( num )
@@ -165,6 +166,164 @@ function DrawPause()
 	Rect( x + 10 * 1,y + 10 * 2,10,10,GetColor( num ) ); ++num;
 	Rect( x + 10 * 1,y + 10 * 3,10,10,GetColor( num ) ); ++num;
 	Rect( x + 10 * 1,y + 10 * 4,10,10,GetColor( num ) ); ++num;
+}
+
+function DrawScore( score,source,in_x,in_y )
+{
+	GetColor = function( num )
+	{
+		if( source === 0 )
+			return titleColors2[num];
+		else if( source === 1 )
+			return "#FF" + Random( 11,99 ) + Random( 11,99 );
+	}
+	score = score.toString();
+	function Number( num,x,y )
+	{
+		var color = 1;
+		num = parseInt( num );
+		if( num === 0 )
+		{
+			Rect( x + 10 * 0,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 1,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 3,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 1,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 3,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+		}
+		else if( num === 1 )
+		{
+			Rect( x + 10 * 0,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 1,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 3,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+		}
+		else if( num === 2 )
+		{
+			Rect( x + 10 * 0,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 3,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 1,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+		}
+		else if( num === 3 )
+		{
+			Rect( x + 10 * 0,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 1,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 3,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+		}
+		else if( num === 4 )
+		{
+			Rect( x + 10 * 0,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 1,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 1,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 3,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+		}
+		else if( num === 5 )
+		{
+			Rect( x + 10 * 0,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 1,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 3,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+		}
+		else if( num === 6 )
+		{
+			Rect( x + 10 * 0,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 1,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 3,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 3,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+		}
+		else if( num === 7 )
+		{
+			Rect( x + 10 * 0,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 3,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 1,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+		}
+		else if( num === 8 )
+		{
+			Rect( x + 10 * 0,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 1,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 3,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 1,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 3,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+		}
+		else if( num === 9 )
+		{
+			Rect( x + 10 * 0,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 1,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 0,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 1,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 0,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 1,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 2,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 3,10,10,GetColor( color ) ); ++color;
+			Rect( x + 10 * 2,y + 10 * 4,10,10,GetColor( color ) ); ++color;
+		}
+	}
+	for( var i = 0; i < score.length; ++i )
+	{
+		const num0 = score.substring( i,i + 1 );
+		Number( num0,i * 40 + in_x,0 + in_y );
+	}
 }
 
 function DrawTitle( source,offsetX,offsetY )
