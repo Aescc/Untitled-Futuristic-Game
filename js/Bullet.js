@@ -32,7 +32,7 @@ class Bullet
 		{
 			this.image.src = "images/bullet/bullet1.png";
 			this.s = 5;
-			this.timerMax = 250;
+			this.timerMax = 500;
 			this.sound = new Audio( "audio/pew0.wav" );
 			this.c = "#" + Random( 11,44 ) + "FF" + Random( 11,22 );
 		}
@@ -47,7 +47,6 @@ class Bullet
 		this.y > 0 && this.y < this.cHeight )
 		{
 			this.isUsable = false;
-			/*
 			if( this.timer > this.timerMax )
 			{
 				this.Respawn();
@@ -56,7 +55,6 @@ class Bullet
 			{
 				++this.timer;
 			}
-			*/
 		}
 		else
 		{
