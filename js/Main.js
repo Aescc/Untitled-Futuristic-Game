@@ -608,6 +608,7 @@ function Init( firstTime = false )
 	{
 		particle.Respawn();
 	} );
+	boss.Init();
 	DrawColors();
 	if( firstTime )
 	{
@@ -821,6 +822,14 @@ function Update()
 					fireCounter = 0;
 				}
 			}
+			if( HitTest( bullets[i].GetPos().x,bullets[i].GetPos().y,
+				bullets[i].GetPos().w,bullets[i].GetPos().h,
+				boss.GetPos().x,boss.GetPos().y,
+				boss.GetPos().w,boss.GetPos().h ) )
+			{
+				boss.Hurt( Random( 1,2 ) );
+				bullets[i].Respawn();
+			}
 		}
 		// console.log( rocks[0].y );
 		const scoreOffset = Math.ceil( scoreAdd / 25 );
@@ -870,6 +879,10 @@ function Update()
 		} );
 		boss.Respawn();
 	}
+	if( boss.GetHP() < 1 )
+	{
+		
+	}
 }
 
 function Draw()
@@ -893,6 +906,7 @@ function Draw()
 	{
 		tank.Draw();
 	} );
+	boss.Draw();
 	particles.forEach( function( particle )
 	{
 		particle.Draw();
@@ -909,7 +923,6 @@ function Draw()
 	{
 		enemyBullet.Draw();
 	} );
-	boss.Draw();
 	player.Draw();
 	// Text( 3,20,"Score: " + totalScore,"#FFF","20PX Arial" );
 	DrawScore( totalScore,1,3,3 );
