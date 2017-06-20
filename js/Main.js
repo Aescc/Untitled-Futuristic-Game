@@ -653,12 +653,14 @@ function CheckClick()
 {
 	// When you click, this happens.
 	firing = true;
+	document.body.style.cursor = "crosshair";
 }
 
 function CheckClick2()
 {
 	// When you stop clicking, this happens.
 	firing = false;
+	document.body.style.cursor = "default";
 }
 
 function CheckMousePos( e )
