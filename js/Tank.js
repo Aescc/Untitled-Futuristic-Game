@@ -61,7 +61,7 @@ class Tank
 			{
 				if( enemyBullets[i].GetUsable() )
 				{
-					const rotation = this.shootDir;
+					const rotation = this.shootDir + Random( -15,15 );
 					enemyBullets[i].SetPos( { x:this.x,y:this.y,rot:rotation } );
 					i = enemyBullets.length + 1;
 					this.shootTimer = 0;

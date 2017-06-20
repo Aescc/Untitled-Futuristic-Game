@@ -57,41 +57,7 @@ class Turret
 			{
 				if( enemyBullets[i].GetUsable() )
 				{
-					var rotation = this.shootDir;
-					/*
-					if( this.imageDir === 0 )
-					{
-						rotation = -90;
-					}
-					else if( this.imageDir === 1 )
-					{
-						rotation = 90;
-					}
-					else if( this.imageDir === 2 )
-					{
-						rotation = 180;
-					}
-					else if( this.imageDir === 3 )
-					{
-						rotation = 0;
-					}
-					else if( this.imageDir === 4 )
-					{
-						rotation = -45;
-					}
-					else if( this.imageDir === 5 )
-					{
-						rotation = 45;
-					}
-					else if( this.imageDir === 6 )
-					{
-						rotation = 135;
-					}
-					else if( this.imageDir === 7 )
-					{
-						rotation = -135;
-					}
-					*/
+					var rotation = this.shootDir + Random( -15,15 );
 					enemyBullets[i].SetPos( { x:this.x,y:this.y,rot:rotation } );
 					i = enemyBullets.length + 1;
 					this.shootTimer = 0;

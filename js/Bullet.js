@@ -4,8 +4,8 @@ class Bullet
 	{
 		this.x = 5000;
 		this.y = 5000;
-		this.w = 40;
-		this.h = 40;
+		this.w = 20;
+		this.h = 20;
 		this.c = "#FF0000"; // Particle color.
 		this.s = 20;
 		this.rot = 0;
