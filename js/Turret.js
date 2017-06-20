@@ -29,7 +29,8 @@ class Turret
 		this.imageDir = 0;
 		this.shootDir = 0;
 		this.shootTimer = 0;
-		this.shootTimerMax = Random( 65,85 );
+		// this.shootTimerMax = Random( 65,85 );
+		this.shootTimerMax = Random( 30,35 );
 		this.HPBar = new HealthBar();
 	}
 	InitImages()

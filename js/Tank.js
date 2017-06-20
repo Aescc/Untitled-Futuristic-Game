@@ -28,9 +28,11 @@ class Tank
 		this.imageDir = 0;
 		this.shootDir = 0;
 		this.shootTimer = 0;
-		this.shootTimerMax = Random( 90,110 );
+		// this.shootTimerMax = Random( 90,110 );
+		this.shootTimerMax = Random( 40,60 );
 		this.moveTimer = 0;
-		this.moveTimerMax = Random( 50,250 );
+		// this.moveTimerMax = Random( 50,250 );
+		this.moveTimerMax = Random( 10,40 );
 		this.vx = 0;
 		this.vy = 0;
 		this.HPBar = new HealthBar();

@@ -860,6 +860,8 @@ function Update()
 		SetVol();
 	}
 	if( totalScore > 5000 )
+		boss.Respawn();
+	if( false )
 	{
 		turrets.forEach( function( turret )
 		{
@@ -879,7 +881,6 @@ function Update()
 				tanks.GetPos().y > 0 && tanks.GetPos().y < canvas.height ) )
 				tanks.SetPos( 5000,0 );
 		} );
-		boss.Respawn();
 	}
 	if( boss.GetHP() < 1 )
 	{
