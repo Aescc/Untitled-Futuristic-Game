@@ -547,6 +547,7 @@ var boss = new Boss();
 
 // Audio
 var ouch = new Audio( "audio/ouch0.wav" );
+var mainTheme = new Audio( "audio/theme.wav" );
 
 window.onload = function()
 {
@@ -851,6 +852,11 @@ function Update()
 	{
 		DrawColors();
 		started = !started;
+		mainTheme.loop = true;
+		if( started )
+			mainTheme.play();
+		else
+			mainTheme.pause();
 		buffer = 0;
 	}
 	if( firing && !started && HitTest( mouse.x - 50,mouse.y,100,20,
