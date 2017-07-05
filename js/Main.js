@@ -640,6 +640,7 @@ function Init( firstTime = false )
 			rock.Init();
 		} );
 		console.log( "Initialization complete!" );
+		SetVol();
 	}
 	else
 	{
@@ -859,14 +860,19 @@ function Update()
 			mainTheme.pause();
 		buffer = 0;
 	}
+	if( mainTheme.currentTime > 47.95 ) // Make a more perfect loop of music.
+		mainTheme.currentTime = 0;
 	if( firing && !started && HitTest( mouse.x - 50,mouse.y,100,20,
 		soundBar.GetPos().x,soundBar.GetPos().y,
 		soundBar.GetPos().w,soundBar.GetPos().h ) )
 	{
 		SetVol();
 	}
-	if( totalScore > 5000 )
+	if( totalScore > 1500 )
+	{
 		boss.Respawn();
+		totalGold = 5000; // Ensure you have max fire rate.
+	}
 	if( false )
 	{
 		turrets.forEach( function( turret )
