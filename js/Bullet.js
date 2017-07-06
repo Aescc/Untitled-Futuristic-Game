@@ -110,10 +110,13 @@ class Bullet
 			h:this.h
 		}
 	}
-	SetPos( pos )
+	SetPos( pos,willPlaySound = true )
 	{
-		this.sound.currentTime = 0;
-		this.sound.play();
+		if( willPlaySound )
+		{
+			this.sound.currentTime = 0;
+			this.sound.play();
+		}
 		this.timer = 0;
 		this.x = pos.x;
 		this.y = pos.y;

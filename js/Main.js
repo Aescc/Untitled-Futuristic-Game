@@ -833,6 +833,8 @@ function Update()
 			{
 				boss.Hurt( Random( 1,2 ) );
 				bullets[i].Respawn();
+				ouch.currentTime = 0;
+				ouch.play();
 			}
 		}
 		// console.log( rocks[0].y );
@@ -873,6 +875,8 @@ function Update()
 		boss.Respawn();
 		totalGold = 5000; // Ensure you have max fire rate.
 	}
+	else
+		boss.SetPos( 9000,9000 );
 	if( false )
 	{
 		turrets.forEach( function( turret )

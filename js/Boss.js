@@ -43,7 +43,8 @@ class Boss
 				y += SPEED * moveDir;
 				if( x > canvas.width * 0.5 && !Random( 0,1 ) )
 					--x;
-				if( shootCounter > SHOOT_MAX && x > 0 && x < canvas.width &&
+				if( shootCounter > SHOOT_MAX &&
+					x > 0 && x < canvas.width &&
 					y > 0 && y < canvas.height )
 				{
 					isDone = false;
@@ -57,13 +58,13 @@ class Boss
 							// enemyBullets[i + 1].SetPos	( { x:x,y:y + h / 2,rot:rotation2 + 20 } );
 							// enemyBullets[i + 2].SetPos	( { x:x,y:y + h / 2,rot:rotation2 - 20 } );
 							enemyBullets[i + 0].SetPos	( { x:x,y:y + h / 2,rot: Random( -10,10    ) } );
-							enemyBullets[i + 1].SetPos	( { x:x,y:y + h / 2,rot: Random( 35,55     ) } );
-							enemyBullets[i + 2].SetPos	( { x:x,y:y + h / 2,rot: Random( 80,100    ) } );
-							enemyBullets[i + 3].SetPos	( { x:x,y:y + h / 2,rot: Random( 125,145   ) } );
-							enemyBullets[i + 4].SetPos	( { x:x,y:y + h / 2,rot: Random( 160,180   ) } );
-							enemyBullets[i + 5].SetPos	( { x:x,y:y + h / 2,rot: Random( -35,-55   ) } );
-							enemyBullets[i + 6].SetPos	( { x:x,y:y + h / 2,rot: Random( -80,-100  ) } );
-							enemyBullets[i + 7].SetPos	( { x:x,y:y + h / 2,rot: Random( -125,-145 ) } );
+							enemyBullets[i + 1].SetPos	( { x:x,y:y + h / 2,rot: Random( 35,55     ) },false );
+							enemyBullets[i + 2].SetPos	( { x:x,y:y + h / 2,rot: Random( 80,100    ) },false );
+							enemyBullets[i + 3].SetPos	( { x:x,y:y + h / 2,rot: Random( 125,145   ) },false );
+							enemyBullets[i + 4].SetPos	( { x:x,y:y + h / 2,rot: Random( 160,180   ) },false );
+							enemyBullets[i + 5].SetPos	( { x:x,y:y + h / 2,rot: Random( -35,-55   ) },false );
+							enemyBullets[i + 6].SetPos	( { x:x,y:y + h / 2,rot: Random( -80,-100  ) },false );
+							enemyBullets[i + 7].SetPos	( { x:x,y:y + h / 2,rot: Random( -125,-145 ) },false );
 							// enemyBullets[i + 3].SetPos	( { x:x,y:y,rot:rotation } );
 							isDone = true;
 							shootCounter = 0;
@@ -89,6 +90,9 @@ class Boss
 					started = !started;
 					deathCounter = 0;
 					HP = HP_MAX;
+					x = 9999;
+					y = 9999;
+					totalScore = 0;
 				}
 				var particleNum = 0;
 				const MAX_PARTICLES = Random( 20,25 );
@@ -113,6 +117,11 @@ class Boss
 				y = canvas.height * 0.2;
 				spawned = true;
 			}
+		}
+		this.SetPos = function( newX,newY )
+		{
+			x = newX;
+			y = newY;
 		}
 		this.GetPos = function()
 		{
