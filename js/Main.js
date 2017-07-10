@@ -16,6 +16,8 @@ var dragCounter = 0;
 const DRAG_MAX = 20;
 var shakeTimer = 0;
 const SHAKE_MAX = 10;
+var loadTimer = 0;
+const LOAD_TIME_MAX = canvas.width;
 
 // Booleans
 var firing = false;
@@ -679,246 +681,251 @@ function CheckMousePos( e )
 
 function Update()
 {
-	if( started )
+	if( loadTimer > LOAD_TIME_MAX )
 	{
-		// Update things here
-		if( keyMap[87] )
+		if( started )
 		{
-			// W
-			if( player.CheckBounds( 0,0 ) )
+			// Update things here
+			if( keyMap[87] )
 			{
-				player.Move( 0 );
+				// W
+				if( player.CheckBounds( 0,0 ) )
+				{
+					player.Move( 0 );
+				}
 			}
-		}
-		else if( keyMap[83] )
-		{
-			// S
-			if( player.CheckBounds( 1,canvas.height - player.GetPos().h ) )
+			else if( keyMap[83] )
 			{
-				player.Move( 1 );
+				// S
+				if( player.CheckBounds( 1,canvas.height - player.GetPos().h ) )
+				{
+					player.Move( 1 );
+				}
 			}
-		}
-		if( keyMap[65] )
-		{
-			// A
-			if( player.CheckBounds( 2,0 ) )
+			if( keyMap[65] )
 			{
-				player.Move( 2 );
+				// A
+				if( player.CheckBounds( 2,0 ) )
+				{
+					player.Move( 2 );
+				}
 			}
-		}
-		else if( keyMap[68] )
-		{
-			// D
-			if( player.CheckBounds( 3,canvas.width - player.GetPos().w ) )
+			else if( keyMap[68] )
 			{
-				player.Move( 3 );
+				// D
+				if( player.CheckBounds( 3,canvas.width - player.GetPos().w ) )
+				{
+					player.Move( 3 );
+				}
 			}
-		}
-		player.Update();
-		player.SetImageDir( mouse.x,mouse.y );
-		background.Update();
-		boss.Update();
-		if( totalGold > 150 )
-			totalGold = 150;
-		fireCounterMax = Math.floor( fireCounterMaxORIG - ( Math.sqrt( totalGold ) * 2 ) );
-		rocks.forEach( function( rock )
-		{
-			rock.Update();
-			if( HitTest( player.GetPos().x,player.GetPos().y,player.GetPos().w,player.GetPos().h,
-				rock.GetPos().x,rock.GetPos().y,rock.GetPos().w,rock.GetPos().h ) )
+			player.Update();
+			player.SetImageDir( mouse.x,mouse.y );
+			background.Update();
+			boss.Update();
+			if( totalGold > 150 )
+				totalGold = 150;
+			fireCounterMax = Math.floor( fireCounterMaxORIG - ( Math.sqrt( totalGold ) * 2 ) );
+			rocks.forEach( function( rock )
 			{
-				ouch.currentTime = 0;
-				ouch.play();
-				rock.Hurt( 99 );
-				player.Hurt( Random( 2,5 ) );
-			}
-			bullets.forEach( function( bullet )
-			{
-				if( HitTest( bullet.GetPos().x,bullet.GetPos().y,bullet.GetPos().w,bullet.GetPos().h,
+				rock.Update();
+				if( HitTest( player.GetPos().x,player.GetPos().y,player.GetPos().w,player.GetPos().h,
 					rock.GetPos().x,rock.GetPos().y,rock.GetPos().w,rock.GetPos().h ) )
 				{
-					// rock.Respawn();
 					ouch.currentTime = 0;
 					ouch.play();
-					rock.Hurt( Random( 1,2 ) );
+					rock.Hurt( 99 );
+					player.Hurt( Random( 2,5 ) );
+				}
+				bullets.forEach( function( bullet )
+				{
+					if( HitTest( bullet.GetPos().x,bullet.GetPos().y,bullet.GetPos().w,bullet.GetPos().h,
+						rock.GetPos().x,rock.GetPos().y,rock.GetPos().w,rock.GetPos().h ) )
+					{
+						// rock.Respawn();
+						ouch.currentTime = 0;
+						ouch.play();
+						rock.Hurt( Random( 1,2 ) );
+						bullet.Respawn();
+					}
+				} );
+			} );
+			enemyBullets.forEach( function( enemyBullet )
+			{
+				enemyBullet.Update();
+				if( HitTest( player.GetPos().x,player.GetPos().y,player.GetPos().w,player.GetPos().h,
+					enemyBullet.GetPos().x,enemyBullet.GetPos().y,enemyBullet.GetPos().w,enemyBullet.GetPos().h ) )
+				{
+					// Init();
+					ouch.currentTime = 0;
+					ouch.play();
+					enemyBullet.Respawn();
+					player.Hurt( Random( 1,2 ) );
+				}
+			} );
+			golds.forEach( function( gold )
+			{
+				gold.Update();
+				if( HitTest( player.GetPos().x,player.GetPos().y,player.GetPos().w,player.GetPos().h,
+					gold.GetPos().x,gold.GetPos().y,gold.GetPos().w,gold.GetPos().h ) )
+				{
+					gold.SetPos( { x:5000,y:5000 } );
+					++totalGold;
+				}
+			} );
+			particles.forEach( function( particle )
+			{
+				particle.Update();
+			} );
+			bulletParticles.forEach( function( bulletParticle )
+			{
+				bulletParticle.Update();
+			} );
+			turrets.forEach( function( turret )
+			{
+				turret.Update();
+				turret.SetImageDir( player.GetPos().x,player.GetPos().y );
+				bullets.forEach( function( bullet )
+				{
+					if( HitTest( turret.GetPos().x,turret.GetPos().y,turret.GetPos().w,turret.GetPos().h,
+					bullet.GetPos().x,bullet.GetPos().y,bullet.GetPos().w,bullet.GetPos().h ) )
+				{
+					ouch.currentTime = 0;
+					ouch.play();
+					turret.Hurt( Random( 1,2 ) );
 					bullet.Respawn();
 				}
+				} );
 			} );
-		} );
-		enemyBullets.forEach( function( enemyBullet )
-		{
-			enemyBullet.Update();
-			if( HitTest( player.GetPos().x,player.GetPos().y,player.GetPos().w,player.GetPos().h,
-				enemyBullet.GetPos().x,enemyBullet.GetPos().y,enemyBullet.GetPos().w,enemyBullet.GetPos().h ) )
+			tanks.forEach( function( tank )
 			{
-				// Init();
-				ouch.currentTime = 0;
-				ouch.play();
-				enemyBullet.Respawn();
-				player.Hurt( Random( 1,2 ) );
-			}
-		} );
-		golds.forEach( function( gold )
-		{
-			gold.Update();
-			if( HitTest( player.GetPos().x,player.GetPos().y,player.GetPos().w,player.GetPos().h,
-				gold.GetPos().x,gold.GetPos().y,gold.GetPos().w,gold.GetPos().h ) )
-			{
-				gold.SetPos( { x:5000,y:5000 } );
-				++totalGold;
-			}
-		} );
-		particles.forEach( function( particle )
-		{
-			particle.Update();
-		} );
-		bulletParticles.forEach( function( bulletParticle )
-		{
-			bulletParticle.Update();
-		} );
-		turrets.forEach( function( turret )
-		{
-			turret.Update();
-			turret.SetImageDir( player.GetPos().x,player.GetPos().y );
-			bullets.forEach( function( bullet )
-			{
-				if( HitTest( turret.GetPos().x,turret.GetPos().y,turret.GetPos().w,turret.GetPos().h,
-				bullet.GetPos().x,bullet.GetPos().y,bullet.GetPos().w,bullet.GetPos().h ) )
-			{
-				ouch.currentTime = 0;
-				ouch.play();
-				turret.Hurt( Random( 1,2 ) );
-				bullet.Respawn();
-			}
-			} );
-		} );
-		tanks.forEach( function( tank )
-		{
-			tank.Update();
-			tank.SetImageDir( player.GetPos().x,player.GetPos().y );
-			bullets.forEach( function( bullet )
-			{
-				if( HitTest( tank.GetPos().x,tank.GetPos().y,tank.GetPos().w,tank.GetPos().h,
-				bullet.GetPos().x,bullet.GetPos().y,bullet.GetPos().w,bullet.GetPos().h ) )
-			{
-				ouch.currentTime = 0;
-				ouch.play();
-				tank.Hurt( Random( 1,2 ) );
-				bullet.Respawn();
-			}
-			} );
-		} );
-		var isDone = false;
-		if( fireCounter <= fireCounterMax )
-		{
-			++fireCounter;
-		}
-		// bullets.forEach( function( bullet )
-		for( var i = 0; i < bullets.length; ++i )
-		{
-			bullets[i].Update();
-			if( firing && fireCounter > fireCounterMax )
-			{
-				if( bullets[i].GetUsable() && !isDone && player.GetHP() > 0 )
+				tank.Update();
+				tank.SetImageDir( player.GetPos().x,player.GetPos().y );
+				bullets.forEach( function( bullet )
 				{
-					rotation = FindAngle	( player.GetPos().x,player.GetPos().y,mouse.x,mouse.y );
-					bullets[i].SetPos		( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation } );
-					bullets[i + 1].SetPos	( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation + 10 } );
-					bullets[i + 2].SetPos	( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation - 10 } );
-					isDone = true;
-					fireCounter = 0;
+					if( HitTest( tank.GetPos().x,tank.GetPos().y,tank.GetPos().w,tank.GetPos().h,
+					bullet.GetPos().x,bullet.GetPos().y,bullet.GetPos().w,bullet.GetPos().h ) )
+				{
+					ouch.currentTime = 0;
+					ouch.play();
+					tank.Hurt( Random( 1,2 ) );
+					bullet.Respawn();
+				}
+				} );
+			} );
+			var isDone = false;
+			if( fireCounter <= fireCounterMax )
+			{
+				++fireCounter;
+			}
+			// bullets.forEach( function( bullet )
+			for( var i = 0; i < bullets.length; ++i )
+			{
+				bullets[i].Update();
+				if( firing && fireCounter > fireCounterMax )
+				{
+					if( bullets[i].GetUsable() && !isDone && player.GetHP() > 0 )
+					{
+						rotation = FindAngle	( player.GetPos().x,player.GetPos().y,mouse.x,mouse.y );
+						bullets[i].SetPos		( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation } );
+						bullets[i + 1].SetPos	( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation + 10 } );
+						bullets[i + 2].SetPos	( { x:player.GetPos().x,y:player.GetPos().y,rot:rotation - 10 } );
+						isDone = true;
+						fireCounter = 0;
+					}
+				}
+				if( HitTest( bullets[i].GetPos().x,bullets[i].GetPos().y,
+					bullets[i].GetPos().w,bullets[i].GetPos().h,
+					boss.GetPos().x,boss.GetPos().y,
+					boss.GetPos().w,boss.GetPos().h ) )
+				{
+					boss.Hurt( Random( 1,2 ) );
+					bullets[i].Respawn();
+					ouch.currentTime = 0;
+					ouch.play();
 				}
 			}
-			if( HitTest( bullets[i].GetPos().x,bullets[i].GetPos().y,
-				bullets[i].GetPos().w,bullets[i].GetPos().h,
-				boss.GetPos().x,boss.GetPos().y,
-				boss.GetPos().w,boss.GetPos().h ) )
+			// console.log( rocks[0].y );
+			const scoreOffset = Math.ceil( scoreAdd / 25 );
+			if( scoreAdd >= scoreOffset )
 			{
-				boss.Hurt( Random( 1,2 ) );
-				bullets[i].Respawn();
-				ouch.currentTime = 0;
-				ouch.play();
+				totalScore += scoreOffset;
+				scoreAdd -= scoreOffset;
 			}
 		}
-		// console.log( rocks[0].y );
-		const scoreOffset = Math.ceil( scoreAdd / 25 );
-		if( scoreAdd >= scoreOffset )
+		else
 		{
-			totalScore += scoreOffset;
-			scoreAdd -= scoreOffset;
+			// Start game here.
+		}
+		soundBar.Update();
+		++buffer;
+		if( keyMap[32] && buffer > BUFFER_MAX )
+		{
+			DrawColors();
+			started = !started;
+			mainTheme.loop = true;
+			if( started )
+				mainTheme.play();
+			else
+				mainTheme.pause();
+			buffer = 0;
+		}
+		if( mainTheme.currentTime > 47.95 ) // Make a more perfect loop of music.
+			mainTheme.currentTime = 0;
+		if( firing && !started && HitTest( mouse.x - 50,mouse.y,100,20,
+			soundBar.GetPos().x,soundBar.GetPos().y,
+			soundBar.GetPos().w,soundBar.GetPos().h ) )
+		{
+			SetVol();
+		}
+		if( totalScore > 1500 )
+		{
+			boss.Respawn();
+			totalGold = 5000; // Ensure you have max fire rate.
+		}
+		else
+			boss.SetPos( 9000,9000 );
+		if( false )
+		{
+			turrets.forEach( function( turret )
+			{
+				if( !( turret.GetPos().x > 0 && turret.GetPos().x < canvas.width &&
+					turret.GetPos().y > 0 && turret.GetPos().y < canvas.height ) )
+					turret.SetPos( 5000,0 );
+			} );
+			rocks.forEach( function( rock )
+			{
+				if( !( rock.GetPos().x > 0 && rock.GetPos().x < canvas.width &&
+					rock.GetPos().y > 0 && rock.GetPos().y < canvas.height ) )
+					rock.SetPos( 5000,0 );
+			} );
+			tanks.forEach( function( tanks )
+			{
+				if( !( tanks.GetPos().x > 0 && tanks.GetPos().x < canvas.width &&
+					tanks.GetPos().y > 0 && tanks.GetPos().y < canvas.height ) )
+					tanks.SetPos( 5000,0 );
+			} );
+		}
+		if( boss.GetHP() < 1 )
+		{
+			
+		}
+		if( isShaking )
+		{	
+			if( shakeTimer < SHAKE_MAX )
+			{
+				++shakeTimer;
+				background.Shake( true,5 );
+			}
+			else
+			{
+				shakeTimer = 0;
+				isShaking = false;
+				background.Shake( false,5 );
+			}
 		}
 	}
 	else
-	{
-		// Start game here.
-	}
-	soundBar.Update();
-	++buffer;
-	if( keyMap[32] && buffer > BUFFER_MAX )
-	{
-		DrawColors();
-		started = !started;
-		mainTheme.loop = true;
-		if( started )
-			mainTheme.play();
-		else
-			mainTheme.pause();
-		buffer = 0;
-	}
-	if( mainTheme.currentTime > 47.95 ) // Make a more perfect loop of music.
-		mainTheme.currentTime = 0;
-	if( firing && !started && HitTest( mouse.x - 50,mouse.y,100,20,
-		soundBar.GetPos().x,soundBar.GetPos().y,
-		soundBar.GetPos().w,soundBar.GetPos().h ) )
-	{
-		SetVol();
-	}
-	if( totalScore > 1500 )
-	{
-		boss.Respawn();
-		totalGold = 5000; // Ensure you have max fire rate.
-	}
-	else
-		boss.SetPos( 9000,9000 );
-	if( false )
-	{
-		turrets.forEach( function( turret )
-		{
-			if( !( turret.GetPos().x > 0 && turret.GetPos().x < canvas.width &&
-				turret.GetPos().y > 0 && turret.GetPos().y < canvas.height ) )
-				turret.SetPos( 5000,0 );
-		} );
-		rocks.forEach( function( rock )
-		{
-			if( !( rock.GetPos().x > 0 && rock.GetPos().x < canvas.width &&
-				rock.GetPos().y > 0 && rock.GetPos().y < canvas.height ) )
-				rock.SetPos( 5000,0 );
-		} );
-		tanks.forEach( function( tanks )
-		{
-			if( !( tanks.GetPos().x > 0 && tanks.GetPos().x < canvas.width &&
-				tanks.GetPos().y > 0 && tanks.GetPos().y < canvas.height ) )
-				tanks.SetPos( 5000,0 );
-		} );
-	}
-	if( boss.GetHP() < 1 )
-	{
-		
-	}
-	if( isShaking )
-	{	
-		if( shakeTimer < SHAKE_MAX )
-		{
-			++shakeTimer;
-			background.Shake( true,5 );
-		}
-		else
-		{
-			shakeTimer = 0;
-			isShaking = false;
-			background.Shake( false,5 );
-		}
-	}
+		loadTimer += Random( 0,5 );
 }
 
 function Draw()
@@ -973,6 +980,10 @@ function Draw()
 		DrawTitle( 0,0,0 );
 		DrawPause();
 		soundBar.Draw();
+	}
+	if( loadTimer < LOAD_TIME_MAX )
+	{
+		Rect( loadTimer,0,canvas.width,canvas.height,"#333" );
 	}
 }
 
