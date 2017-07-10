@@ -141,15 +141,6 @@ class Player
 			this.HPBar.Draw();
 		}
 	}
-	GetPos()
-	{
-		return {
-			x:this.x,
-			y:this.y,
-			w:this.w,
-			h:this.h
-		}
-	}
 	SetPos( pos )
 	{
 		this.x = pos.x;
@@ -211,6 +202,15 @@ class Player
 			this.imageDir = 2;
 			this.flameX = this.x + this.w + Random( -offset,offset );
 			this.flameY = Random( this.y,this.y + this.h );
+		}
+	}
+	GetPos()
+	{
+		return {
+			x:this.x + 15,
+			y:this.y + 15,
+			w:this.w - 30,
+			h:this.h - 30
 		}
 	}
 	GetHP()
