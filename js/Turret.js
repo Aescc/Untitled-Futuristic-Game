@@ -140,7 +140,7 @@ class Turret
 	Hurt( amount )
 	{
 		var particleNum = 0;
-		const MAX_PARTICLES = Random( 1,3 );
+		const MAX_PARTICLES = Random( 4,7 ); // changed
 		for( var i = 0; i < bulletParticles.length; ++i )
 		{
 			if( bulletParticles[i].GetInfo() && particleNum < MAX_PARTICLES )
