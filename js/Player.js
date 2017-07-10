@@ -158,6 +158,7 @@ class Player
 	Hurt( amount )
 	{
 		this.HP -= amount;
+		ScreenShake();
 	}
 	SetImageDir( mouseX,mouseY )
 	{

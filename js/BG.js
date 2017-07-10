@@ -26,6 +26,16 @@ class BG
 			[],[],[],[],[],[],[],[],[],[],
 			[],[],[],[],[],[],[],[],[],[]
 		];
+		this.isShaking = false;
+		this.SHAKE_MAX = 2; // How long to move in 1 direction before changing directions.
+		this.shakeTimer = SHAKE_MAX;
+		this.intensity = 2;
+		this.shakeVX = Random( -this.intensity,this.intensity );
+		this.shakeVY = Random( -this.intensity,this.intensity );
+		this.X_ORIG = 0;
+		this.Y_ORIG = 0;
+		this.REAL_X = 0;
+		this.REAL_Y = 0;
 	}
 	Generate()
 	{
@@ -67,6 +77,30 @@ class BG
 		{
 			this.x = this.cWidth;
 		}
+		if( this.isShaking )
+		{
+			if( !this.hasShaken )
+			{
+				this.X_ORIG = this.x;
+				this.Y_ORIG = this.y;
+			}
+			if( this.shakeTimer > this.SHAKE_MAX )
+			{
+				this.shakeTimer = 0;
+				this.shakeVX = Random( -this.intensity,this.intensity );
+				this.shakeVY = Random( -this.intensity,this.intensity );
+				this.x = this.X_ORIG;
+				this.y = this.Y_ORIG;
+				this.hasShaken = false;
+			}
+			else
+			{
+				++this.shakeTimer;
+				this.x += this.shakeVX;
+				this.y += this.shakeVY;
+				this.hasShaken = true;
+			}
+		}
 	}
 	Draw()
 	{
@@ -95,6 +129,21 @@ class BG
 					Rect( drawX,drawY,10,10,this.colorMap[i][j] );
 				}
 			}
+		}
+	}
+	Shake( willShake,intensity )
+	{
+		this.intensity = intensity;
+		this.isShaking = willShake;
+		if( willShake )
+		{
+			this.REAL_X = this.x;
+			this.REAL_Y = this.y;
+		}
+		else
+		{
+			this.x = this.REAL_X;
+			this.y = this.REAL_Y;
 		}
 	}
 }

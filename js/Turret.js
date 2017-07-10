@@ -66,6 +66,7 @@ class Turret
 		}
 		if( this.HP < 1 )
 		{
+			ScreenShake();
 			// scoreAdd += 500;
 			scoreAdd += Random( 250,400 );
 			this.SpawnGold( Random( 5,10 ) );

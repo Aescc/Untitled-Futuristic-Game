@@ -83,6 +83,7 @@ class Tank
 		}
 		if( this.HP < 1 )
 		{
+			ScreenShake();
 			// scoreAdd += 200;
 			scoreAdd += Random( 100,170 );
 			this.SpawnGold( Random( 1,4 ) );

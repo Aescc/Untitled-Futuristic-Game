@@ -77,6 +77,7 @@ class Rock
 		}
 		if( this.HP < 1 )
 		{
+			ScreenShake();
 			// scoreAdd += 50;
 			scoreAdd += Random( 20,70 );
 			// this.Respawn();

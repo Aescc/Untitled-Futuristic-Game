@@ -14,11 +14,14 @@ var buffer = 5;
 const BUFFER_MAX = 5;
 var dragCounter = 0;
 const DRAG_MAX = 20;
+var shakeTimer = 0;
+const SHAKE_MAX = 10;
 
 // Booleans
 var firing = false;
 var started = false;
 var startDrag = false;
+var isShaking = false;
 
 // Arrays
 var keyMap = [];
@@ -902,6 +905,20 @@ function Update()
 	{
 		
 	}
+	if( isShaking )
+	{	
+		if( shakeTimer < SHAKE_MAX )
+		{
+			++shakeTimer;
+			background.Shake( true,5 );
+		}
+		else
+		{
+			shakeTimer = 0;
+			isShaking = false;
+			background.Shake( false,5 );
+		}
+	}
 }
 
 function Draw()
@@ -957,4 +974,9 @@ function Draw()
 		DrawPause();
 		soundBar.Draw();
 	}
+}
+
+function ScreenShake()
+{
+	isShaking = true;
 }
