@@ -724,7 +724,12 @@ function Update()
 			boss.Update();
 			if( totalGold > 150 )
 				totalGold = 150;
-			fireCounterMax = Math.floor( fireCounterMaxORIG - ( Math.sqrt( totalGold ) * 2 ) );
+			if( totalGold < 10 )
+				fireCounterMax = fireCounterMaxORIG - totalGold; // Math.floor( fireCounterMaxORIG - ( Math.sqrt( totalGold ) * 2 ) );
+			else if( totalGold < 20 )
+				fireCounterMax = fireCounterMaxORIG - 10 - totalGold / 2;
+			else if( totalGold < 25 )
+				fireCounterMax = fireCounterMaxORIG - 20 - totalGold / 5;
 			rocks.forEach( function( rock )
 			{
 				rock.Update();
