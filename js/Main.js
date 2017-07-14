@@ -796,7 +796,7 @@ function Update()
 				{
 					ouch.currentTime = 0;
 					ouch.play();
-					turret.Hurt( Random( 1,2 ) );
+					turret.Hurt( Random( 2,5 ) ); // Changed from 1,2.
 					bullet.Respawn();
 				}
 				} );
@@ -812,7 +812,7 @@ function Update()
 				{
 					ouch.currentTime = 0;
 					ouch.play();
-					tank.Hurt( Random( 1,2 ) );
+					tank.Hurt( Random( 2,5 ) ); // Changed from 1,2.
 					bullet.Respawn();
 				}
 				} );
