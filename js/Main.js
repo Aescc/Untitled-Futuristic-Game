@@ -722,8 +722,8 @@ function Update()
 			player.SetImageDir( mouse.x,mouse.y );
 			background.Update();
 			boss.Update();
-			if( totalGold > 150 )
-				totalGold = 150;
+			if( totalGold > 250 )
+				totalGold = 250;
 			if( totalGold < 10 * 2 )
 				fireCounterMax = fireCounterMaxORIG - totalGold / 2; // Math.floor( fireCounterMaxORIG - ( Math.sqrt( totalGold ) * 2 ) );
 			else if( totalGold < 20 * 2 )
