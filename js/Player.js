@@ -83,7 +83,9 @@ class Player
 			}
 			else
 				++this.deathCounter;
+			boss.SetSpawned( false );
 		}
+		
 		this.HPBar.SetPos( this.x,this.y + this.h );
 		this.HPBar.SetHP( this.HP / this.HPORIG );
 	}
@@ -211,6 +213,15 @@ class Player
 			y:this.y + 15,
 			w:this.w - 30,
 			h:this.h - 30
+		}
+	}
+	GetPosGold()
+	{
+		return {
+			x:this.x,
+			y:this.y,
+			w:this.w,
+			h:this.h
 		}
 	}
 	GetHP()

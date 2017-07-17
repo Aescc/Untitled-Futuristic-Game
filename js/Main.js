@@ -724,12 +724,12 @@ function Update()
 			boss.Update();
 			if( totalGold > 150 )
 				totalGold = 150;
-			if( totalGold < 10 )
-				fireCounterMax = fireCounterMaxORIG - totalGold; // Math.floor( fireCounterMaxORIG - ( Math.sqrt( totalGold ) * 2 ) );
-			else if( totalGold < 20 )
-				fireCounterMax = fireCounterMaxORIG - 10 - totalGold / 2;
-			else if( totalGold < 25 )
-				fireCounterMax = fireCounterMaxORIG - 20 - totalGold / 5;
+			if( totalGold < 10 * 2 )
+				fireCounterMax = fireCounterMaxORIG - totalGold / 2; // Math.floor( fireCounterMaxORIG - ( Math.sqrt( totalGold ) * 2 ) );
+			else if( totalGold < 20 * 2 )
+				fireCounterMax = fireCounterMaxORIG - 10 - totalGold / 4;
+			else if( totalGold < 25 * 2 )
+				fireCounterMax = fireCounterMaxORIG - 20 - totalGold / 10;
 			rocks.forEach( function( rock )
 			{
 				rock.Update();
@@ -770,7 +770,7 @@ function Update()
 			golds.forEach( function( gold )
 			{
 				gold.Update();
-				if( HitTest( player.GetPos().x,player.GetPos().y,player.GetPos().w,player.GetPos().h,
+				if( HitTest( player.GetPosGold().x,player.GetPosGold().y,player.GetPosGold().w,player.GetPosGold().h,
 					gold.GetPos().x,gold.GetPos().y,gold.GetPos().w,gold.GetPos().h ) )
 				{
 					gold.SetPos( { x:5000,y:5000 } );
@@ -796,7 +796,7 @@ function Update()
 				{
 					ouch.currentTime = 0;
 					ouch.play();
-					turret.Hurt( Random( 2,5 ) ); // Changed from 1,2.
+					turret.Hurt( Random( 1,2 ) ); // Changed from 1,2.
 					bullet.Respawn();
 				}
 				} );
@@ -812,7 +812,7 @@ function Update()
 				{
 					ouch.currentTime = 0;
 					ouch.play();
-					tank.Hurt( Random( 2,5 ) ); // Changed from 1,2.
+					tank.Hurt( Random( 1,2 ) ); // Changed from 1,2.
 					bullet.Respawn();
 				}
 				} );

@@ -118,6 +118,10 @@ class Boss
 				spawned = true;
 			}
 		}
+		this.SetSpawned = function( hasSpawned )
+		{
+			spawned = hasSpawned;
+		}
 		this.SetPos = function( newX,newY )
 		{
 			x = newX;
