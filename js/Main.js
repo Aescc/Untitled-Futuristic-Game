@@ -867,9 +867,15 @@ function Update()
 		{
 			DrawColors();
 			started = !started;
-			mainTheme.loop = true;
+			// mainTheme.loop = true;
 			if( started )
+			{
 				mainTheme.play();
+				mainTheme.addEventListener( 'ended',function() {
+					this.currentTime = 0;
+					this.play();
+				},false );
+			}
 			else
 				mainTheme.pause();
 			buffer = 0;
