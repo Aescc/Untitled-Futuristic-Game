@@ -24,6 +24,7 @@ var firing = false;
 var started = false;
 var startDrag = false;
 var isShaking = false;
+var songHasLoaded = false;
 
 // Arrays
 var keyMap = [];
@@ -936,7 +937,12 @@ function Update()
 		}
 	}
 	else
-		loadTimer += Random( 0,5 );
+	{
+		if( loadTimer < canvas.width / 3 || songHasLoaded )
+			loadTimer += Random( 0,5 );
+	}
+	if( mainTheme.duration > 5 )
+		songHasLoaded = true;
 }
 
 function Draw()
