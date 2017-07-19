@@ -26,6 +26,7 @@ var startDrag = false;
 var isShaking = false;
 var songHasLoaded = false;
 
+
 // Arrays
 var keyMap = [];
 var rocks =
@@ -553,7 +554,11 @@ var boss = new Boss();
 
 // Audio
 var ouch = new Audio( "audio/ouch0.wav" );
-var mainTheme = new Audio( "audio/theme.wav" );
+var audioTheme = new Audio( "audio/song.mp3" );
+audioTheme.oncanplaythrough = function()
+{
+	songHasLoaded = true;
+}
 
 window.onload = function()
 {
@@ -868,21 +873,15 @@ function Update()
 		{
 			DrawColors();
 			started = !started;
-			// mainTheme.loop = true;
+			// audioTheme.loop = true;
 			if( started )
-			{
-				mainTheme.play();
-				mainTheme.addEventListener( 'ended',function() {
-					this.currentTime = 0;
-					this.play();
-				},false );
-			}
+				audioTheme.play();
 			else
-				mainTheme.pause();
+				audioTheme.pause();
 			buffer = 0;
 		}
-		if( mainTheme.currentTime > 47.95 ) // Make a more perfect loop of music.
-			mainTheme.currentTime = 0;
+		if( audioTheme.currentTime > 47.95 ) // Make a more perfect loop of music.
+			audioTheme.currentTime = 0;
 		if( firing && !started && HitTest( mouse.x - 50,mouse.y,100,20,
 			soundBar.GetPos().x,soundBar.GetPos().y,
 			soundBar.GetPos().w,soundBar.GetPos().h ) )
@@ -938,11 +937,12 @@ function Update()
 	}
 	else
 	{
-		if( loadTimer < canvas.width / 3 || songHasLoaded )
+		if( loadTimer < canvas.width / 1.2 || songHasLoaded )
 			loadTimer += Random( 0,5 );
 	}
-	if( mainTheme.duration > 5 )
-		songHasLoaded = true;
+	// console.log( audioTheme.duration );
+	// if( audioTheme.duration > 5 )
+	// 	songHasLoaded = true;
 }
 
 function Draw()

@@ -666,7 +666,7 @@ function SetVol()
 	{
 		eB.SetVol( vol );
 	} );
-	mainTheme.volume = vol;
+	audioTheme.volume = vol;
 }
 
 function Text( x,y,message,color,font )
